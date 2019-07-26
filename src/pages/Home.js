@@ -13,8 +13,8 @@ const LoadingView = () => (
 );
 class Home extends Component {
   state = {
-    inputLink: "http://www.google.com",
-    outputLink: "http://matchstick.design/",
+    inputLink: "",
+    outputLink: "",
     isLoading: false
   };
 
