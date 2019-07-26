@@ -4,6 +4,8 @@ import * as api from "../core/apiActions";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
+import * as Trello from 'trello';
+
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
 const LoadingView = () => (
@@ -101,6 +103,58 @@ class Home extends Component {
       this.setState({ croppedImageUrl });
     }
   }
+
+  addCardWithImage = () => {
+   let trello = new Trello("MY APPLICATION KEY", "MY USER TOKEN");
+    
+  }
+
+      // Helper function to build an XMLHttpRequest object that prints to console.log
+  // when a response is received.
+  createCard = function() {
+    var request = new XMLHttpRequest();
+    let token = process.env.REACT_APP_TRELLO_TOKEN;
+    request.responseType = "json";
+    request.onreadystatechange = function() {
+      // When we have a response back from the server we want to share it!
+      // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+      if (request.readyState === 4) {
+        console.log(`Successfully uploaded at: ${request.response.date}`);
+      }
+    }
+    request.open("POST", `https://api.trello.com/1/cards/`);
+    return request;
+  }
+
+    // Helper function to build an XMLHttpRequest object that prints to console.log
+  // when a response is received.
+   createRequest = function(cardId) {
+    var request = new XMLHttpRequest();
+    request.responseType = "json";
+    request.onreadystatechange = function() {
+      // When we have a response back from the server we want to share it!
+      // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+      if (request.readyState === 4) {
+        console.log(`Successfully uploaded at: ${request.response.date}`);
+      }
+    }
+    request.open("POST", `https://api.trello.com/1/cards/${cardId}/attachments/`);
+    return request;
+  }
+
+   createAndSendForm = function(file, cardId) {
+    let key = process.env.REACT_APP_TRELLO_KEY;
+    let token = process.env.REACT_APP_TRELLO_TOKEN;
+    var formData = new FormData();
+    formData.append("key", key);
+    formData.append("token", token);
+    formData.append("file", file);
+    formData.append("mimeType", "image/jpg");
+    formData.append("name", "My Awesome File");  
+    // formData.append("mimeType", "image/png"); // Optionally, set mimeType if needed.
+    var request = this.createRequest(cardId);
+    request.send(formData);
+  };
 
   render() {
     const { inputLink, outputLink, results, isLoading, crop, croppedImageUrl } = this.state;
