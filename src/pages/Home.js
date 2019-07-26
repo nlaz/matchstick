@@ -8,7 +8,7 @@ const LoadingView = () => (
     className="absolute absolute--fill bg-white pa4 tc"
     style={{ opacity: 0.8 }}
   >
-    <span className="f4">Loading...</span>
+    <span className="f4">Generating a snapshot for you. Loading...</span>
   </div>
 );
 class Home extends Component {
@@ -29,9 +29,9 @@ class Home extends Component {
   handleSubmit = async () => {
     const { inputLink, outputLink } = this.state;
     this.setState({ isLoading: true });
-    const results = await api.fetchReport(inputLink, outputLink);
-    console.log(results);
-    this.setState({ results: results, isLoading: false });
+    const response = await api.fetchReport(inputLink, outputLink);
+    console.log(response);
+    this.setState({ results: response.data, isLoading: false });
   };
 
   render() {
@@ -85,11 +85,23 @@ class Home extends Component {
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
             <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
-              {results && <img src={`${baseUrl}${results.input}`} alt="" />}
+              {results && (
+                <img
+                  alt=""
+                  className="ba b--light-gray"
+                  src={`${baseUrl}${results.input}`}
+                  style={{ objectFit: "cover", height: "100%" }}
+                />
+              )}
             </div>
             <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
               {results && (
-                <img src={`${baseUrl}${results.comparison}`} alt="" />
+                <img
+                  alt=""
+                  className="ba b--light-gray"
+                  src={`${baseUrl}${results.comparison}`}
+                  style={{ objectFit: "cover", height: "100%" }}
+                />
               )}
             </div>
           </div>

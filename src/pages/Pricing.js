@@ -45,12 +45,13 @@ function Pricing() {
             Reach out to us and we will get you set up with a Pro account today.
             Upgrade your account today.
           </p>
-          <button
-            className="f5 b ttu br2 bg-orange bn white"
+          <a
+            className="f5 b ttu br2 bg-orange bn white no-underline"
             style={{ padding: "12px 28px" }}
+            href="/"
           >
             Contact us
-          </button>
+          </a>
         </div>
       </div>
     </div>
