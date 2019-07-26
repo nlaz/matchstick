@@ -36,7 +36,6 @@ class Home extends Component {
   };
 
   handleSubmit = async () => {
-    const { history } = this.props;
     const { inputLink, outputLink } = this.state;
     this.props.history.push({
       search: qs.stringify({ input: inputLink, output: outputLink })
