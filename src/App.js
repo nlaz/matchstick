@@ -1,6 +1,7 @@
 import React from "react";
 import { HashRouter, Switch, Link, Route } from "react-router-dom";
-import Home from "./Home";
+import Home from "./pages/Home";
+import Pricing from "./pages/Pricing";
 import "./App.css";
 
 const NavBar = () => (
@@ -16,13 +17,11 @@ const NavBar = () => (
   </div>
 );
 
-const Pricing = () => <div>Pricing Page</div>;
-
 const NotFound = () => <div>Page Not Found</div>;
 
 function App() {
   return (
-    <div className="helvetica">
+    <div className="helvetica bg-near-white">
       <HashRouter>
         <NavBar />
         <Switch>
