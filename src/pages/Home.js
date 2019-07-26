@@ -78,57 +78,63 @@ class Home extends Component {
       crop.height
     );
 
+
     return new Promise((resolve, reject) => {
       canvas.toBlob(blob => {
-        if (!blob) {
-          //reject(new Error('Canvas is empty'));
-          console.error("Canvas is empty");
-          return;
-        }
         blob.name = fileName;
-        window.URL.revokeObjectURL(this.fileUrl);
-        this.fileUrl = window.URL.createObjectURL(blob);
-        resolve(this.fileUrl);
-      }, "image/jpeg");
+        resolve(blob);
+      }, 'image/jpeg');
     });
+
+    // return new Promise((resolve, reject) => {
+    //   canvas.toBlob(blob => {
+    //     if (!blob) {
+    //       //reject(new Error('Canvas is empty'));
+    //       console.error("Canvas is empty");
+    //       return;
+    //     }
+    //     blob.name = fileName;
+    //     window.URL.revokeObjectURL(this.fileUrl);
+    //     this.fileUrl = window.URL.createObjectURL(blob);
+    //     console.log(this.fileUrl)
+    //     resolve(this.fileUrl);
+    //   }, "image/jpeg");
+    // });
   };
 
   makeClientCrop = async (crop) => {
     if (this.imageRef && crop.width && crop.height) {
-      const croppedImageUrl = await this.getCroppedImg(
+      const croppedImageBlob = await this.getCroppedImg(
         this.imageRef,
         crop,
         "newFile.jpeg"
       );
-      this.setState({ croppedImageUrl });
+      console.log("crop", crop)
+      console.log(croppedImageBlob)
+      let file = new File([croppedImageBlob], "file.jpg", { type: "image/jpeg", lastModified: Date.now() })
+      console.log(file)
+      this.setState({ croppedImageBlob, file });
     }
   }
 
-  addCardWithImage = () => {
-   let trello = new Trello("MY APPLICATION KEY", "MY USER TOKEN");
-    
+  cropAndSend = (e) => {
+    let card = this.createCard();
+    console.log(card)
+    card.then(cardId => {
+      return this.createAndSendForm(this.state.croppedImageBlob, cardId)
+    })
   }
 
-      // Helper function to build an XMLHttpRequest object that prints to console.log
-  // when a response is received.
-  createCard = function() {
-    var request = new XMLHttpRequest();
-    let token = process.env.REACT_APP_TRELLO_TOKEN;
-    request.responseType = "json";
-    request.onreadystatechange = function() {
-      // When we have a response back from the server we want to share it!
-      // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
-      if (request.readyState === 4) {
-        console.log(`Successfully uploaded at: ${request.response.date}`);
-      }
-    }
-    request.open("POST", `https://api.trello.com/1/cards/`);
-    return request;
+  createCard = () => {
+   let trello = new Trello(process.env.REACT_APP_TRELLO_KEY, process.env.REACT_APP_TRELLO_TOKEN);
+    return trello.addCard('Visual Defect', 'Please fix the defect', '5d3b226d634ca22ceb838beb').then((card) => {
+      console.log(card, card.id) 
+      return card.id   
+    })
   }
-
     // Helper function to build an XMLHttpRequest object that prints to console.log
   // when a response is received.
-   createRequest = function(cardId) {
+   createRequest = (cardId) => {
     var request = new XMLHttpRequest();
     request.responseType = "json";
     request.onreadystatechange = function() {
@@ -142,7 +148,7 @@ class Home extends Component {
     return request;
   }
 
-   createAndSendForm = function(file, cardId) {
+   createAndSendForm = (file, cardId) => {
     let key = process.env.REACT_APP_TRELLO_KEY;
     let token = process.env.REACT_APP_TRELLO_TOKEN;
     var formData = new FormData();
@@ -150,14 +156,14 @@ class Home extends Component {
     formData.append("token", token);
     formData.append("file", file);
     formData.append("mimeType", "image/jpg");
-    formData.append("name", "My Awesome File");  
+    formData.append("name", "Defect");  
     // formData.append("mimeType", "image/png"); // Optionally, set mimeType if needed.
     var request = this.createRequest(cardId);
     request.send(formData);
   };
 
   render() {
-    const { inputLink, outputLink, results, isLoading, crop, croppedImageUrl } = this.state;
+    const { inputLink, outputLink, results, isLoading, crop, croppedImageBlob } = this.state;
     console.log("loaded", results.comparison)
 return (
       <div>
@@ -239,8 +245,11 @@ return (
             crossorigin={"anonymous"}
           />
         )}
-        {croppedImageUrl && (
-          <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageUrl} />
+        {croppedImageBlob && (
+          <div>
+            <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageBlob} />
+            <button onClick={this.cropAndSend}>Send!</button>
+          </div>
         )}
             </div>
           </div>
