@@ -54,7 +54,7 @@ class Home extends Component {
                 value={inputLink}
                 onChange={this.changeInputUrl}
                 className="f4 br2 ba b--moon-gray"
-                placeholder="i.e. www.invisionapp.com"
+                placeholder="i.e. www.google.stage"
                 style={{ padding: "8px 16px" }}
               />
             </div>
@@ -84,24 +84,28 @@ class Home extends Component {
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
             <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
-              {results && (
-                <img
-                  alt=""
-                  className="ba b--light-gray"
-                  src={`${baseUrl}${results.input}`}
-                  style={{ objectFit: "cover", height: "100%" }}
-                />
-              )}
+              <img
+                alt=""
+                className="ba b--light-gray"
+                src={
+                  results
+                    ? `${baseUrl}${results.input}`
+                    : require("../images/google.png")
+                }
+                style={{ objectFit: "cover", height: "100%" }}
+              />
             </div>
             <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
-              {results && (
-                <img
-                  alt=""
-                  className="ba b--light-gray"
-                  src={`${baseUrl}${results.comparison}`}
-                  style={{ objectFit: "cover", height: "100%" }}
-                />
-              )}
+              <img
+                alt=""
+                className="ba b--light-gray"
+                style={{ objectFit: "cover", height: "100%" }}
+                src={
+                  results
+                    ? `${baseUrl}${results.comparison}`
+                    : require("../images/comparison.png")
+                }
+              />
             </div>
           </div>
         </div>
