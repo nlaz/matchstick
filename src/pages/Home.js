@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as qs from "query-string";
 import * as api from "../core/apiActions";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
@@ -11,12 +12,20 @@ const LoadingView = () => (
     <span className="f4">Generating a snapshot for you. Loading...</span>
   </div>
 );
+
 class Home extends Component {
   state = {
     inputLink: "",
     outputLink: "",
     isLoading: false
   };
+
+  componentWillMount() {
+    const { search } = this.props.location;
+
+    const { input, output } = qs.parse(search);
+    this.setState({ inputLink: input, outputLink: output });
+  }
 
   changeInputUrl = e => {
     this.setState({ inputLink: e.target.value });
@@ -86,25 +95,33 @@ class Home extends Component {
             <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
               <img
                 alt=""
-                className="ba b--light-gray"
+                className="ba b--light-gray w-100"
                 src={
                   results
                     ? `${baseUrl}${results.input}`
                     : require("../images/google.png")
                 }
-                style={{ objectFit: "cover", height: "100%" }}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "top",
+                  height: "100%"
+                }}
               />
             </div>
             <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
               <img
                 alt=""
-                className="ba b--light-gray"
-                style={{ objectFit: "cover", height: "100%" }}
+                className="ba b--light-gray w-100"
                 src={
                   results
                     ? `${baseUrl}${results.comparison}`
                     : require("../images/comparison.png")
                 }
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "top",
+                  height: "100%"
+                }}
               />
             </div>
           </div>
