@@ -30,7 +30,6 @@ class Home extends Component {
     const { inputLink, outputLink } = this.state;
     this.setState({ isLoading: true });
     const response = await api.fetchReport(inputLink, outputLink);
-    console.log(response);
     this.setState({ results: response.data, isLoading: false });
   };
 
