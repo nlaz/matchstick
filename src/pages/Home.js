@@ -18,6 +18,45 @@ const ViewToggle = props => {
     </div>
   );
 };
+const DismissButton = ({ onClick }) => (
+  <button
+    className="bg-transparent bn f3 db mb1"
+    onClick={onClick}
+    style={{ marginLeft: "auto" }}
+  >
+    <img
+      src={require("../dismiss.svg")}
+      alt="Dismiss modal"
+      height="20px"
+      width="20px"
+      style={{ opacity: 0.4 }}
+    />
+  </button>
+);
+
+const ShowInputModal = ({ results, onDismiss, image }) => (
+  <div className="bg-black-60 absolute top-0 bottom-0 left-0 right-0 z-999">
+    <div
+      className="ma4 bg-white ph4 pb4 pt3 relative br2"
+      style={{ boxShadow: "0 4px 8px rgba(0,0,0, .15)" }}
+    >
+      <DismissButton onClick={onDismiss} />
+      <img className="ba b--light-gray" src={image} />
+    </div>
+  </div>
+);
+
+const ShowCompareModal = ({ onDismiss, image }) => (
+  <div className="bg-black-60 absolute top-0 bottom-0 left-0 right-0 z-999">
+    <div
+      className="ma4 bg-white ph4 pb4 pt3 relative br2"
+      style={{ boxShadow: "0 4px 8px rgba(0,0,0, .15)" }}
+    >
+      <DismissButton onClick={onDismiss} />
+      <img className="ba b--light-gray" src={image} />
+    </div>
+  </div>
+);
 
 const LoadingView = () => (
   <div
@@ -33,7 +72,9 @@ class Home extends Component {
     inputLink: "",
     outputLink: "",
     isLoading: false,
-    toggleState: "input"
+    toggleState: "input",
+    isShowingInputModal: false,
+    isShowingCompareModal: false
   };
 
   componentWillMount() {
@@ -66,16 +107,46 @@ class Home extends Component {
     this.setState({ toggleState: nextState });
   };
 
+  dismissInputModal = () => this.setState({ isShowingInputModal: false });
+
+  dismissCompareModal = () => this.setState({ isShowingCompareModal: false });
+
+  showInputModal = () => this.setState({ isShowingInputModal: true });
+
+  showCompareModal = () => this.setState({ isShowingCompareModal: true });
+
   render() {
     const {
       inputLink,
       outputLink,
       results,
       isLoading,
-      toggleState
+      toggleState,
+      isShowingInputModal,
+      isShowingCompareModal
     } = this.state;
     return (
       <div>
+        {isShowingInputModal && (
+          <ShowInputModal
+            onDismiss={this.dismissInputModal}
+            image={
+              results
+                ? `${baseUrl}${results[toggleState]}`
+                : require("../images/google.png")
+            }
+          />
+        )}
+        {isShowingCompareModal && (
+          <ShowCompareModal
+            onDismiss={this.dismissCompareModal}
+            image={
+              results
+                ? `${baseUrl}${results.comparison}`
+                : require("../images/comparison.png")
+            }
+          />
+        )}
         <div className="white ph4 pv3 mb3">
           <h1 className="f1 mv0">Design with Confidence.</h1>
           <p className="f4 b measure-wide lh-copy mt0 near-white mb3">
@@ -141,7 +212,8 @@ class Home extends Component {
                 />
                 <img
                   alt=""
-                  className="ba bg--near-white b--light-gray w-100"
+                  onClick={this.showInputModal}
+                  className="ba bg--near-white b--light-gray w-100 pointer"
                   src={
                     results
                       ? `${baseUrl}${results[toggleState]}`
@@ -159,7 +231,8 @@ class Home extends Component {
               <div className="b mb2">This is how well it matches.</div>
               <img
                 alt=""
-                className="ba b--light-gray w-100"
+                onClick={this.showCompareModal}
+                className="ba bg--near-white b--light-gray w-100 pointer"
                 src={
                   results
                     ? `${baseUrl}${results.comparison}`
