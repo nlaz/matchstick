@@ -4,10 +4,19 @@ import * as api from "../core/apiActions";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
+const ViewToggle = (props) => {
+  return (
+    <div className={`toggle absolute top-0 right-0`}>
+      <input className={"checkbox"} type="checkbox" id="toggle" checked={props.checked} onChange={props.onChange}/>
+      <label htmlFor="toggle" className="toggle"></label>
+    </div>
+  )
+}
+
 const LoadingView = () => (
   <div
     className="absolute absolute--fill bg-white pa4 tc"
-    style={{ opacity: 0.8 }}
+    style={{ opacity: 0.8, zIndex: 99 }}
   >
     <span className="f4">Generating a snapshot for you. Loading...</span>
   </div>
@@ -17,7 +26,8 @@ class Home extends Component {
   state = {
     inputLink: "",
     outputLink: "",
-    isLoading: false
+    isLoading: false,
+    toggleState: 'input'
   };
 
   componentWillMount() {
@@ -45,8 +55,13 @@ class Home extends Component {
     this.setState({ results: response.data, isLoading: false });
   };
 
+  toggleState = () => {
+    let nextState = this.state.toggleState === 'input' ? 'output' : 'input';
+    this.setState({toggleState: nextState})
+  }
+
   render() {
-    const { inputLink, outputLink, results, isLoading } = this.state;
+    const { inputLink, outputLink, results, isLoading, toggleState } = this.state;
     return (
       <div>
         <div className="white ph4 pv3 mb3">
@@ -98,13 +113,16 @@ class Home extends Component {
         <div className="bg-white br3 ph4 pv4 mh4 mb4">
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
-            <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
+            <div className="w-100 bg-moon-gray mr2 relative" style={{ height: "600px" }}>
+              {results &&
+                <ViewToggle onChange={this.toggleState} checked={toggleState === 'input'} />
+              }
               <img
                 alt=""
                 className="ba b--light-gray w-100"
                 src={
                   results
-                    ? `${baseUrl}${results.input}`
+                    ? `${baseUrl}${results[toggleState]}`
                     : require("../images/google.png")
                 }
                 style={{
