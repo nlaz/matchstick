@@ -1,0 +1,33 @@
+.bg-fire-gradient {
+  background: linear-gradient(120deg, #f76b1c, #f9b94d);
+}
+
+.proxima-nova {
+  font-family: proxima-nova, sans-serif;
+  font-style: normal;
+}
+
+.bg-orange {
+  background: #f76c1c !important;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #999999;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #999999;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #999999;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #999999;
+}
+
+.b--light-gray {
+  border-color: #e5e5e5 !important;
+}

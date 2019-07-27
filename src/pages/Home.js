@@ -49,50 +49,48 @@ class Home extends Component {
     const { inputLink, outputLink, results, isLoading } = this.state;
     return (
       <div>
-        <div className="ph4 pv4">
-          <h1 className="f1 orange mb1">Design with Confidence.</h1>
-          <p className="f4 measure lh-copy mt0 mid-gray mb3">
-            Automate your visual testing by comparing what you design with what
-            you build.
+        <div className="white ph4 pv3 mb3">
+          <h1 className="f1 mv0">Design with Confidence.</h1>
+          <p className="f4 b measure-wide lh-copy mt0 near-white mb3">
+            Compare your designs with your live site to find the
+            inconsistencies.
           </p>
         </div>
-        <div className="bg-near-white pv1 ph4 bt bb b--light-gray">
-          <div className="flex">
-            <div className="pv3 flex flex-column w-100">
+
+        <div className="bg-white br3 ph4 pv4 mh4 mb4">
+          <div className="flex ph3 mb3">
+            <div className="flex flex-column w-100">
               <label className="b mb2">
                 Enter the Invision link to your designs
               </label>
               <input
                 value={inputLink}
                 onChange={this.changeInputUrl}
-                className="f4 br2 ba b--moon-gray"
+                className="f5 br2 ba b--light-gray"
                 placeholder="i.e. www.google.stage"
-                style={{ padding: "8px 16px" }}
+                style={{ padding: "12px 16px" }}
               />
             </div>
-            <div className="pv3 flex flex-column w-100 ml2">
+            <div className="flex flex-column w-100 ml2">
               <label className="b mb2">Enter the link to your website</label>
               <input
                 value={outputLink}
                 onChange={this.changeOutputUrl}
-                className="f4 br2 ba b--moon-gray"
+                className="f5 br2 ba b--light-gray"
                 placeholder="i.e. www.google.com"
-                style={{ padding: "8px 16px" }}
+                style={{ padding: "12px 16px" }}
               />
             </div>
-            <div className="ml2 flex flex-column justify-end pv3">
+            <div className="ml2 flex flex-column justify-end">
               <button
                 onClick={this.handleSubmit}
-                className="f4 br2 bg-orange bn white"
-                style={{ padding: "9px 40px" }}
+                className="f5 br2 b bg-orange bn white"
+                style={{ padding: "13px 60px" }}
               >
                 Submit
               </button>
             </div>
           </div>
-        </div>
-
-        <div className="bg-near-white ph4 pv4 b--light-gray">
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
             <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
