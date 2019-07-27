@@ -4,14 +4,20 @@ import * as api from "../core/apiActions";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
-const ViewToggle = (props) => {
+const ViewToggle = props => {
   return (
-    <div className={`toggle absolute top-0 right-0`}>
-      <input className={"checkbox"} type="checkbox" id="toggle" checked={props.checked} onChange={props.onChange}/>
-      <label htmlFor="toggle" className="toggle"></label>
+    <div className="toggle absolute top-0 right-0 mr3 mt3">
+      <input
+        className="checkbox"
+        type="checkbox"
+        id="toggle"
+        checked={props.checked}
+        onChange={props.onChange}
+      />
+      <label htmlFor="toggle" className="toggle" />
     </div>
-  )
-}
+  );
+};
 
 const LoadingView = () => (
   <div
@@ -27,7 +33,7 @@ class Home extends Component {
     inputLink: "",
     outputLink: "",
     isLoading: false,
-    toggleState: 'input'
+    toggleState: "input"
   };
 
   componentWillMount() {
@@ -56,12 +62,18 @@ class Home extends Component {
   };
 
   toggleState = () => {
-    let nextState = this.state.toggleState === 'input' ? 'output' : 'input';
-    this.setState({toggleState: nextState})
-  }
+    let nextState = this.state.toggleState === "input" ? "output" : "input";
+    this.setState({ toggleState: nextState });
+  };
 
   render() {
-    const { inputLink, outputLink, results, isLoading, toggleState } = this.state;
+    const {
+      inputLink,
+      outputLink,
+      results,
+      isLoading,
+      toggleState
+    } = this.state;
     return (
       <div>
         <div className="white ph4 pv3 mb3">
@@ -76,7 +88,7 @@ class Home extends Component {
           <div className="flex ph3 pv2">
             <div className="flex flex-column w-100">
               <label className="b mb2">
-                Enter the Invision link to your designs
+                Enter the public Invision link to your designs
               </label>
               <input
                 value={inputLink}
@@ -110,29 +122,41 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="bg-white br3 ph4 pv4 mh4 mb4">
-          <div className="flex bg-white pa3 relative">
+        <div className="bg-white br3 ph4 pv3 mh4 mb4">
+          <div className="flex bg-white ph3 pv3 relative">
             {isLoading && <LoadingView />}
-            <div className="w-100 bg-moon-gray mr2 relative" style={{ height: "600px" }}>
-              {results &&
-                <ViewToggle onChange={this.toggleState} checked={toggleState === 'input'} />
-              }
-              <img
-                alt=""
-                className="ba b--light-gray w-100"
-                src={
-                  results
-                    ? `${baseUrl}${results[toggleState]}`
-                    : require("../images/google.png")
-                }
-                style={{
-                  objectFit: "cover",
-                  objectPosition: "top",
-                  height: "100%"
-                }}
-              />
+            <div className="w-100">
+              <div className="flex justify-between">
+                <div className="b mb2">
+                  This is how your{" "}
+                  {toggleState === "input"
+                    ? "designs look."
+                    : "live site looks."}{" "}
+                </div>
+              </div>
+              <div className="w-100 mr2 relative" style={{ height: "600px" }}>
+                <ViewToggle
+                  onChange={this.toggleState}
+                  checked={toggleState === "input"}
+                />
+                <img
+                  alt=""
+                  className="ba bg--near-white b--light-gray w-100"
+                  src={
+                    results
+                      ? `${baseUrl}${results[toggleState]}`
+                      : require("../images/google.png")
+                  }
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    height: "100%"
+                  }}
+                />
+              </div>
             </div>
-            <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
+            <div className="w-100 ml2" style={{ height: "600px" }}>
+              <div className="b mb2">This is how well it matches.</div>
               <img
                 alt=""
                 className="ba b--light-gray w-100"
