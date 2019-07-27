@@ -3,10 +3,19 @@ import * as api from "../core/apiActions";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
+const ViewToggle = (props) => {
+  return (
+    <div className={`toggle absolute top-0 right-0`}>
+      <input className={"checkbox"} type="checkbox" id="toggle" checked={props.checked} onChange={props.onChange}/>
+      <label htmlFor="toggle" className="toggle"></label>
+    </div>
+  )
+}
+
 const LoadingView = () => (
   <div
     className="absolute absolute--fill bg-white pa4 tc"
-    style={{ opacity: 0.8 }}
+    style={{ opacity: 0.8, zIndex: 99 }}
   >
     <span className="f4">Generating a snapshot for you. Loading...</span>
   </div>
@@ -15,7 +24,8 @@ class Home extends Component {
   state = {
     inputLink: "http://www.google.com",
     outputLink: "http://matchstick.design/",
-    isLoading: false
+    isLoading: false,
+    toggleState: 'input'
   };
 
   changeInputUrl = e => {
@@ -33,8 +43,13 @@ class Home extends Component {
     this.setState({ results: response.data, isLoading: false });
   };
 
+  toggleState = () => {
+    let nextState = this.state.toggleState === 'input' ? 'output' : 'input';
+    this.setState({toggleState: nextState})
+  }
+
   render() {
-    const { inputLink, outputLink, results, isLoading } = this.state;
+    const { inputLink, outputLink, results, isLoading, toggleState } = this.state;
     return (
       <div>
         <div className="ph4 pv4">
@@ -83,14 +98,17 @@ class Home extends Component {
         <div className="bg-near-white ph4 pv4 b--light-gray">
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
-            <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
+            <div className="w-100 bg-moon-gray mr2 relative" style={{ height: "600px" }}>
               {results && (
-                <img
-                  alt=""
-                  className="ba b--light-gray"
-                  src={`${baseUrl}${results.input}`}
-                  style={{ objectFit: "cover", height: "100%" }}
-                />
+                <div style={{ height: "600px" }}>
+                  <ViewToggle onChange={this.toggleState} checked={this.state.toggleState === 'input'} />
+                  <img
+                    alt=""
+                    className="ba b--light-gray"
+                    src={`${baseUrl}${results[toggleState]}`}
+                    style={{ objectFit: "cover", height: "100%" }}
+                  />
+                </div>
               )}
             </div>
             <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
