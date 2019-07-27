@@ -71,7 +71,9 @@ const LoadingView = () => (
     className="absolute absolute--fill bg-white pa4 tc"
     style={{ opacity: 0.8, zIndex: 99 }}
   >
-    <span className="f4">Generating a snapshot for you. Loading...</span>
+    <span className="f4">
+      Generating a snapshot for you. This should take a minute...
+    </span>
   </div>
 );
 
