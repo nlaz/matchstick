@@ -146,7 +146,7 @@ class Home extends Component {
             image={
               Object.keys(results).length > 0
                 ? `${baseUrl}${results[toggleState]}`
-                : require("../images/google.png")
+                : require(`../images/example-${toggleState}.png`)
             }
           />
         )}
@@ -156,7 +156,7 @@ class Home extends Component {
             image={
               Object.keys(results).length > 0
                 ? `${baseUrl}${results.comparison}`
-                : require("../images/comparison.png")
+                : require("../images/example-comparison.png")
             }
           />
         )}
@@ -185,7 +185,7 @@ class Home extends Component {
                 value={inputLink}
                 onChange={this.changeInputUrl}
                 className="f5 br2 ba b--light-gray"
-                placeholder="i.e. www.google.stage"
+                placeholder="http://"
                 style={{ padding: "12px 16px" }}
               />
             </div>
@@ -196,7 +196,7 @@ class Home extends Component {
                   value={outputLink}
                   onChange={this.changeOutputUrl}
                   className="f5 br2 ba b--light-gray"
-                  placeholder="i.e. www.google.com"
+                  placeholder="http://"
                   style={{ padding: "12px 16px" }}
                 />
               </div>
@@ -233,7 +233,7 @@ class Home extends Component {
                   src={
                     Object.keys(results).length > 0
                       ? `${baseUrl}${results[toggleState]}`
-                      : require("../images/google.png")
+                      : require(`../images/example-${toggleState}.png`)
                   }
                   style={{
                     objectFit: "cover",
@@ -255,7 +255,7 @@ class Home extends Component {
                   src={
                     Object.keys(results).length > 0
                       ? `${baseUrl}${results.comparison}`
-                      : require("../images/comparison.png")
+                      : require("../images/example-comparison.png")
                   }
                   style={{
                     objectFit: "cover",
