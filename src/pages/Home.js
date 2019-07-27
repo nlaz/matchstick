@@ -17,8 +17,8 @@ const LoadingView = () => (
 );
 class Home extends Component {
   state = {
-    inputLink: 'http://www.google.com',
-    outputLink: 'http://matchstick.design/',
+    inputLink: "",
+    outputLink: "",
     isLoading: false,
     results: {},
     crop: {
@@ -184,8 +184,8 @@ class Home extends Component {
                 value={inputLink}
                 onChange={this.changeInputUrl}
                 className="f4 br2 ba b--moon-gray"
-                placeholder="i.e. www.invisionapp.com"
-                style={{padding: '8px 16px'}}
+                placeholder="i.e. www.google.stage"
+                style={{ padding: "8px 16px" }}
               />
             </div>
             <div className="pv3 flex flex-column w-100 ml2">
@@ -212,25 +212,29 @@ class Home extends Component {
         <div className="bg-near-white ph4 pv4 b--light-gray">
           <div className="flex bg-white pa3 relative">
             {isLoading && <LoadingView />}
-            <div className="w-100 bg-moon-gray mr2" style={{height: '600px'}}>
-              {results && (
-                <img
-                  alt=""
-                  className="ba b--light-gray"
-                  src={`${baseUrl}${results.input}`}
-                  style={{objectFit: 'cover', height: '100%'}}
-                />
-              )}
+            <div className="w-100 bg-moon-gray mr2" style={{ height: "600px" }}>
+              <img
+                alt=""
+                className="ba b--light-gray"
+                src={
+                  results
+                    ? `${baseUrl}${results.input}`
+                    : require("../images/google.png")
+                }
+                style={{ objectFit: "cover", height: "100%" }}
+              />
             </div>
-            <div className="w-100 bg-moon-gray ml2" style={{height: '600px'}}>
-              {results && (
-                <img
-                  alt=""
-                  className="ba b--light-gray"
-                  src={`${baseUrl}${results.comparison}`}
-                  style={{objectFit: 'cover', height: '100%'}}
-                />
-              )}
+            <div className="w-100 bg-moon-gray ml2" style={{ height: "600px" }}>
+              <img
+                alt=""
+                className="ba b--light-gray"
+                style={{ objectFit: "cover", height: "100%" }}
+                src={
+                  results
+                    ? `${baseUrl}${results.comparison}`
+                    : require("../images/comparison.png")
+                }
+              />
             </div>
             <div className="w-100 bg-moon-gray ml2" style={{height: '600px'}}>
               FOO
