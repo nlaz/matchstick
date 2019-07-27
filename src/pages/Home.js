@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import * as api from '../core/apiActions';
+import React, { Component } from "react";
+import * as api from "../core/apiActions";
 import * as qs from "query-string";
 
-import Ticketing from './Ticketing';
+import Ticketing from "./Ticketing";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -20,22 +20,64 @@ const ViewToggle = props => {
     </div>
   );
 };
+const DismissButton = ({ onClick }) => (
+  <button
+    className="bg-transparent bn f3 db mb1"
+    onClick={onClick}
+    style={{ marginLeft: "auto" }}
+  >
+    <img
+      src={require("../dismiss.svg")}
+      alt="Dismiss modal"
+      height="20px"
+      width="20px"
+      style={{ opacity: 0.4 }}
+    />
+  </button>
+);
+
+const ShowInputModal = ({ results, onDismiss, image }) => (
+  <div className="bg-black-60 absolute top-0 bottom-0 left-0 right-0 z-999">
+    <div
+      className="ma4 bg-white ph4 pb4 pt3 relative br2"
+      style={{ boxShadow: "0 4px 8px rgba(0,0,0, .15)" }}
+    >
+      <DismissButton onClick={onDismiss} />
+      <img className="ba b--light-gray" src={image} />
+    </div>
+  </div>
+);
+
+const ShowCompareModal = ({ onDismiss, image }) => (
+  <div className="bg-black-60 absolute top-0 bottom-0 left-0 right-0 z-999">
+    <div
+      className="ma4 bg-white ph4 pb4 pt3 relative br2"
+      style={{ boxShadow: "0 4px 8px rgba(0,0,0, .15)" }}
+    >
+      <DismissButton onClick={onDismiss} />
+      <img className="ba b--light-gray" src={image} />
+    </div>
+  </div>
+);
 
 const LoadingView = () => (
   <div
     className="absolute absolute--fill bg-white pa4 tc"
-    style={{opacity: 0.8, zIndex: 99}}>
+    style={{ opacity: 0.8, zIndex: 99 }}
+  >
     <span className="f4">Generating a snapshot for you. Loading...</span>
   </div>
 );
 
 class Home extends Component {
   state = {
-    inputLink: '',
-    outputLink: '',
+    inputLink: "",
+    outputLink: "",
     isLoading: false,
     results: {},
-    toggleState: 'input'
+    toggleState: "input",
+    isShowingInputModal: false,
+    isShowingCompareModal: false
   };
 
   componentWillMount() {
@@ -46,11 +88,11 @@ class Home extends Component {
   }
 
   changeInputUrl = e => {
-    this.setState({inputLink: e.target.value});
+    this.setState({ inputLink: e.target.value });
   };
 
   changeOutputUrl = e => {
-    this.setState({outputLink: e.target.value});
+    this.setState({ outputLink: e.target.value });
   };
 
   handleSubmit = async () => {
@@ -60,17 +102,25 @@ class Home extends Component {
     });
     this.setState({ isLoading: true });
     const response = await api.fetchReport(inputLink, outputLink);
-    this.setState({results: response.data, isLoading: false});
+    this.setState({ results: response.data, isLoading: false });
   };
 
   toggleState = () => {
-    let nextState = this.state.toggleState === 'input' ? 'output' : 'input';
-    this.setState({toggleState: nextState});
+    let nextState = this.state.toggleState === "input" ? "output" : "input";
+    this.setState({ toggleState: nextState });
   };
 
   toggleCrop = () => {
-    this.setState({cropIsOpen: !this.state.cropIsOpen});
+    this.setState({ cropIsOpen: !this.state.cropIsOpen });
   };
+
+  dismissInputModal = () => this.setState({ isShowingInputModal: false });
+
+  dismissCompareModal = () => this.setState({ isShowingCompareModal: false });
+
+  showInputModal = () => this.setState({ isShowingInputModal: true });
+
+  showCompareModal = () => this.setState({ isShowingCompareModal: true });
 
   render() {
     const {
@@ -78,11 +128,33 @@ class Home extends Component {
       outputLink,
       results,
       isLoading,
-      toggleState
+      toggleState,
+      isShowingInputModal,
+      isShowingCompareModal
     } = this.state;
     return (
       <div>
-      {this.state.cropIsOpen && (
+        {isShowingInputModal && (
+          <ShowInputModal
+            onDismiss={this.dismissInputModal}
+            image={
+              results
+                ? `${baseUrl}${results[toggleState]}`
+                : require("../images/google.png")
+            }
+          />
+        )}
+        {isShowingCompareModal && (
+          <ShowCompareModal
+            onDismiss={this.dismissCompareModal}
+            image={
+              results
+                ? `${baseUrl}${results.comparison}`
+                : require("../images/comparison.png")
+            }
+          />
+        )}
+        {this.state.cropIsOpen && (
           <Ticketing
             baseUrl={baseUrl}
             results={results}
@@ -131,7 +203,6 @@ class Home extends Component {
                   Submit
                 </button>
                 <button onClick={this.toggleCrop}>Crop</button>
-
               </div>
             </div>
           </div>
@@ -156,7 +227,8 @@ class Home extends Component {
                 />
                 <img
                   alt=""
-                  className="ba bg--near-white b--light-gray w-100"
+                  onClick={this.showInputModal}
+                  className="ba bg--near-white b--light-gray w-100 pointer"
                   src={
                     results
                       ? `${baseUrl}${results[toggleState]}`
@@ -174,11 +246,12 @@ class Home extends Component {
               <div className="b mb2">This is how well it matches.</div>
               <img
                 alt=""
-                className="ba b--light-gray w-100"
+                onClick={this.showCompareModal}
+                className="ba bg--near-white b--light-gray w-100 pointer"
                 src={
                   results
                     ? `${baseUrl}${results.comparison}`
-                    : require('../images/comparison.png')
+                    : require("../images/comparison.png")
                 }
                 style={{
                   objectFit: "cover",

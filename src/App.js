@@ -48,7 +48,7 @@ const NotFound = () => <div>Page Not Found</div>;
 
 function App() {
   return (
-    <div className="proxima-nova bg-fire-gradient">
+    <div className="proxima-nova bg-fire-gradient relative">
       <BrowserRouter>
         <NavBar />
         <Route path="/" component={GoogleAnalytics} />
