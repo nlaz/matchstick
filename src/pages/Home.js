@@ -245,7 +245,7 @@ class Home extends Component {
             </div>
 
             <div className="w-100">
-              <div className="b mb2">This is how well it matches.</div>
+              <div className="b mb2 ml2">This is how well it matches.</div>
               <div className="w-100 ml2 relative" style={{ height: "600px" }}>
                 <ViewCrop onClick={this.toggleCrop} />
                 <img

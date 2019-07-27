@@ -33,7 +33,6 @@
 }
 
 .toggle {
-  position: relative;
   display: inline-block;
   width: 40px;
   height: 20px;
@@ -61,7 +60,7 @@
   background-color: #ff6300;
 }
 .checkbox {
-  display : none;
+  display: none;
 }
 
 .modal-wrapper {
