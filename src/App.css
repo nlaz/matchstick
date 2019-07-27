@@ -43,11 +43,12 @@
 }
 .modal {
   position: absolute;
-  width: 300px;
-  min-height: 300px;
+  width: 90%;
+  max-height: 90%;
   background: white;
   border-radius: 10px;
   padding: 10px;
+  overflow: auto;
 }
 .modal .cropImage {
   width: 100%;
