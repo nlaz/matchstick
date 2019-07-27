@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import * as qs from "query-string";
 import * as api from "../core/apiActions";
+import * as qs from "query-string";
+
+import Ticketing from "./Ticketing";
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
+
+const ViewCrop = ({ onClick }) => (
+  <button onClick={onClick} className="absolute top-0 right-0 mr3 mt3">
+    <img src={require("../target.svg")} height="14px" width="14px" />
+  </button>
+);
 
 const ViewToggle = props => {
   return (
@@ -72,6 +80,7 @@ class Home extends Component {
     inputLink: "",
     outputLink: "",
     isLoading: false,
+    results: {},
     toggleState: "input",
     isShowingInputModal: false,
     isShowingCompareModal: false
@@ -107,6 +116,10 @@ class Home extends Component {
     this.setState({ toggleState: nextState });
   };
 
+  toggleCrop = () => {
+    this.setState({ cropIsOpen: !this.state.cropIsOpen });
+  };
+
   dismissInputModal = () => this.setState({ isShowingInputModal: false });
 
   dismissCompareModal = () => this.setState({ isShowingCompareModal: false });
@@ -131,7 +144,7 @@ class Home extends Component {
           <ShowInputModal
             onDismiss={this.dismissInputModal}
             image={
-              results
+              Object.keys(results).length > 0
                 ? `${baseUrl}${results[toggleState]}`
                 : require("../images/google.png")
             }
@@ -141,10 +154,17 @@ class Home extends Component {
           <ShowCompareModal
             onDismiss={this.dismissCompareModal}
             image={
-              results
+              Object.keys(results).length > 0
                 ? `${baseUrl}${results.comparison}`
                 : require("../images/comparison.png")
             }
+          />
+        )}
+        {this.state.cropIsOpen && (
+          <Ticketing
+            baseUrl={baseUrl}
+            results={results}
+            toggleCrop={this.toggleCrop}
           />
         )}
         <div className="white ph4 pv3 mb3">
@@ -197,13 +217,9 @@ class Home extends Component {
           <div className="flex bg-white ph3 pv3 relative">
             {isLoading && <LoadingView />}
             <div className="w-100">
-              <div className="flex justify-between">
-                <div className="b mb2">
-                  This is how your{" "}
-                  {toggleState === "input"
-                    ? "designs look."
-                    : "live site looks."}{" "}
-                </div>
+              <div className="b mb2">
+                This is how your{" "}
+                {toggleState === "input" ? "designs look." : "live site looks."}{" "}
               </div>
               <div className="w-100 mr2 relative" style={{ height: "600px" }}>
                 <ViewToggle
@@ -215,7 +231,7 @@ class Home extends Component {
                   onClick={this.showInputModal}
                   className="ba bg--near-white b--light-gray w-100 pointer"
                   src={
-                    results
+                    Object.keys(results).length > 0
                       ? `${baseUrl}${results[toggleState]}`
                       : require("../images/google.png")
                   }
@@ -227,23 +243,27 @@ class Home extends Component {
                 />
               </div>
             </div>
-            <div className="w-100 ml2" style={{ height: "600px" }}>
+
+            <div className="w-100">
               <div className="b mb2">This is how well it matches.</div>
-              <img
-                alt=""
-                onClick={this.showCompareModal}
-                className="ba bg--near-white b--light-gray w-100 pointer"
-                src={
-                  results
-                    ? `${baseUrl}${results.comparison}`
-                    : require("../images/comparison.png")
-                }
-                style={{
-                  objectFit: "cover",
-                  objectPosition: "top",
-                  height: "100%"
-                }}
-              />
+              <div className="w-100 ml2 relative" style={{ height: "600px" }}>
+                <ViewCrop onClick={this.toggleCrop} />
+                <img
+                  alt=""
+                  onClick={this.showCompareModal}
+                  className="ba bg--near-white b--light-gray w-100 pointer"
+                  src={
+                    Object.keys(results).length > 0
+                      ? `${baseUrl}${results.comparison}`
+                      : require("../images/comparison.png")
+                  }
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    height: "100%"
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

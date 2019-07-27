@@ -9,11 +9,13 @@
     "query-string": "^6.8.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-image-crop": "^8.1.0",
     "react-ga": "^2.6.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "tachyons": "^4.11.1"
+    "tachyons": "^4.11.1",
+    "trello": "^0.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

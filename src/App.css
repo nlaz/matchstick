@@ -61,5 +61,30 @@
   background-color: #ff6300;
 }
 .checkbox {
-  display: none;
+  display : none;
+}
+
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  background: grey;
+}
+.modal {
+  position: absolute;
+  width: 90%;
+  max-height: 90%;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto;
+}
+.modal .cropImage {
+  width: 100%;
 }
