@@ -4,6 +4,7 @@ import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 import Trello from 'trello';
+import FileSaver from 'file-saver';
 
 class Ticketing extends Component {
   state = {
@@ -93,6 +94,11 @@ class Ticketing extends Component {
       this.resetDefect();
     });
   };
+
+  downloadFile = e => {
+    let file = new File([this.state.croppedImageBlob], "MatchstickCrop.jpg", {type: "image/jpeg"});
+    FileSaver.saveAs(file);
+  }
 
   createCard = () => {
     let trello = new Trello(
@@ -186,6 +192,12 @@ class Ticketing extends Component {
                   style={{padding: '8px 16px'}}
                   onClick={this.cropAndSend}>
                   Send to Trello
+                </button>
+                <button
+                  className={'f4 br2 bg-orange bn white ml4'}
+                  style={{padding: '8px 16px'}}
+                  onClick={this.downloadFile}>
+                  Download
                 </button>
               </div>
             </div>
