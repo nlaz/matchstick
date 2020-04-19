@@ -1,6 +1,9 @@
 :root {
+  --navy: rgba(0, 27, 68);
   --navy-60: rgba(0, 27, 68, 0.6);
   --navy-40: rgba(0, 27, 68, 0.4);
+  --toggle-size: 14px;
+  --gold: #ffb700;
 }
 body {
   min-height: 100vh;
@@ -23,4 +26,33 @@ body {
 }
 .navy-60 {
   color: var(--navy-60);
+}
+
+.checkbox-toggle {
+  height: var(--toggle-size);
+  width: var(--toggle-size);
+  border-radius: 100%;
+  transition: all 0.3s cubic-bezier(0.33, 1, 0.66, 1);
+  left: 2px;
+  top: 1px;
+}
+
+.checkbox-wrapper {
+  width: 32px;
+  height: 18px;
+  border-radius: 999px;
+}
+
+.checkbox:checked + .checkbox-wrapper {
+  background-color: var(--navy) !important;
+  border-color: var(--navy) !important;
+}
+
+.checkbox:checked + .checkbox-wrapper .checkbox-toggle {
+  left: 14px;
+  background-color: var(--gold);
+}
+
+.checkbox:checked + {
+  background: black;
 }
