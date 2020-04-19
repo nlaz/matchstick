@@ -10,8 +10,8 @@ const ResultsSection = () => {
   const [toggle, setToggle] = useState(true);
   return (
     <div className="mt4">
-      <div className="flex pt1 mb2">
-        <div className="w-100 mr2">
+      <div className="flex flex-column flex-row-ns flex-column-m pt1 mb2">
+        <div className="w-100 mr2 mb3">
           <div className="f6 fw5 mb1 flex items-center">
             <Toggle onClick={() => setToggle(!toggle)} />
             {toggle ? (
@@ -22,7 +22,7 @@ const ResultsSection = () => {
           </div>
           <img src={toggle ? input : output} className="mb0 br2 mt1" />
         </div>
-        <div className="w-100 ml1">
+        <div className="w-100 ml1 mb3">
           <div className="f6 fw5 mb1">This is how well it matches.</div>
           <img src={comparison} className="mb0 br2 mt1" />
         </div>
