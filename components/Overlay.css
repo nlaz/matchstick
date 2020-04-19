@@ -1,0 +1,10 @@
+.overlay-wrapper .overlay {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.1s linear;
+}
+
+.overlay-wrapper:hover .overlay {
+  visibility: visible;
+  opacity: 1;
+}
