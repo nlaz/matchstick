@@ -1,6 +1,26 @@
+:root {
+  --navy-60: rgba(0, 27, 68, 0.6);
+  --navy-40: rgba(0, 27, 68, 0.4);
+}
 body {
   min-height: 100vh;
 }
 .mukta {
   font-family: "Mukta", serif;
+}
+.bg-none {
+  background: none;
+}
+
+.input {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: var(--navy-40);
+}
+.navy-60 {
+  color: var(--navy-60);
 }

@@ -2,7 +2,10 @@ import { Component } from "react";
 import Head from "next/head";
 
 const Layout = ({ children }) => (
-  <div className="mukta flex flex-column" style={{ minHeight: "100vh" }}>
+  <div
+    className="sans-serif bg-gold flex flex-column"
+    style={{ minHeight: "100vh" }}
+  >
     <Head>
       <title>Matchstick - A tool to visually check designs</title>
       <meta
