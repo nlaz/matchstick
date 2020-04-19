@@ -3,7 +3,7 @@ import React from "react";
 import ResultsSection from "./ResultsSection";
 
 const FormSection = () => (
-  <div className="ba b--navy br3 mt5 pa3 mb4">
+  <div className="ba b--navy br3 mt5 pa3 mb5">
     <div className="flex">
       <div className="w-100 mr2">
         <label className="db f6 fw5 mb1">
