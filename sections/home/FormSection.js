@@ -1,37 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
+import { Download, Maximize } from "react-feather";
 
-import ResultsSection from "./ResultsSection";
+import Input from "../../components/Input";
+import comparison from "../../images/matchstick-comparison.jpg";
 
-const FormSection = () => (
-  <div className="ba b--navy br3 mt5 pa4 mb5">
-    <div className="flex flex-column flex-row-ns flex-column-m">
-      <div className="w-100 mr2 mb3">
-        <label className="db f6 fw5 mb1">
-          Enter the public Invision link to your designs
-        </label>
-        <input
-          className="input w-100 db pv2 ph3 bg-none ba b--navy br2 navy"
-          placeholder="https://"
+const Form = () => {
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <div className="mr3" style={{ flex: 1 }}>
+      <div className="flex mb4">
+        <Input
+          placeholder="Enter your website link"
+          className="mr3 input-primary"
         />
+        <button className="btn btn-primary flex items-center">
+          <Download size={18} />
+          <span className="ml2 mr2">Upload mockup file</span>
+        </button>
       </div>
-      <div className="w-100 flex mb3">
-        <div className="w-100 mr2 ml1">
-          <label className="db f6 fw5 mb1">
-            Enter the link to your website
-          </label>
-          <input
-            className="input w-100 db pv2 ph3 bg-none ba b--navy br2 navy"
-            placeholder="https://"
-          />
-        </div>
-        <div className="flex items-end ml1">
-          <button className="ba b--navy ph3 pv2 bg-navy br2 white">
-            Submit
-          </button>
+      <div className="bg-white shadow-4 center pa4 br3 relative">
+        <img src={comparison} />
+        <div
+          className="pointer bg-white absolute flex items-center justify-center shadow-5 top-2 right-2 ma4 br-100"
+          style={{ width: "56px", height: "56px" }}
+          onClick={() => setShowModal(true)}
+        >
+          <Maximize />
         </div>
       </div>
     </div>
-    <ResultsSection />
+  );
+};
+
+const Options = () => (
+  <div className="ml3" style={{ width: "360px" }}>
+    <div className="f4 fw5 mb3 pb2">Options</div>
+    <div className="mb3 pb2">
+      <label className="f6 db mid-gray mb2">Orientation</label>
+      <Input value="Vertical" />
+    </div>
+    <div className="mb3 pb2 flex">
+      <div className="w-100 mr2">
+        <label className="f6 db mid-gray mb2">Width</label>
+        <Input value="1080px" />
+      </div>
+      <div className="w-100 ml2">
+        <label className="f6 db mid-gray mb2">Height</label>
+        <Input value="3080px" />
+      </div>
+    </div>
+  </div>
+);
+
+const FormSection = () => (
+  <div className="flex mb5">
+    <Form />
+    <Options />
   </div>
 );
 
