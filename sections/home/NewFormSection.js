@@ -1,26 +1,36 @@
-import React from "react";
-import { Download } from "react-feather";
+import React, { useState } from "react";
+import { Download, Maximize } from "react-feather";
 
 import Input from "../../components/Input";
 import comparison from "../../images/matchstick-comparison.jpg";
 
-const Form = () => (
-  <div className="mr3" style={{ flex: 1 }}>
-    <div className="flex mb4">
-      <Input
-        placeholder="Enter your website link"
-        className="mr3 input-primary"
-      />
-      <button className="btn btn-primary flex items-center">
-        <Download size={18} />
-        <span className="ml2 mr2">Upload mockup file</span>
-      </button>
+const Form = () => {
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <div className="mr3" style={{ flex: 1 }}>
+      <div className="flex mb4">
+        <Input
+          placeholder="Enter your website link"
+          className="mr3 input-primary"
+        />
+        <button className="btn btn-primary flex items-center">
+          <Download size={18} />
+          <span className="ml2 mr2">Upload mockup file</span>
+        </button>
+      </div>
+      <div className="bg-white shadow-4 center pa4 br3 relative">
+        <img src={comparison} />
+        <div
+          className="pointer bg-white absolute flex items-center justify-center shadow-5 top-2 right-2 ma4 br-100"
+          style={{ width: "56px", height: "56px" }}
+          onClick={() => setShowModal(true)}
+        >
+          <Maximize />
+        </div>
+      </div>
     </div>
-    <div className="bg-white shadow-4 center pa4 br3">
-      <img src={comparison} />
-    </div>
-  </div>
-);
+  );
+};
 
 const Options = () => (
   <div className="ml3" style={{ width: "360px" }}>
@@ -43,7 +53,7 @@ const Options = () => (
 );
 
 const FormSection = () => (
-  <div className="flex mb4">
+  <div className="flex mb5">
     <Form />
     <Options />
   </div>
