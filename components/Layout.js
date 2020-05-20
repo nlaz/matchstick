@@ -14,10 +14,6 @@ const Layout = ({ children }) => (
         key="viewport"
       />
       <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&display=swap"
-        rel="stylesheet"
-      />
     </Head>
     {children}
   </div>

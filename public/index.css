@@ -4,21 +4,43 @@
   --navy-40: rgba(0, 27, 68, 0.4);
   --toggle-size: 14px;
   --gold: #ffb700;
+  --form-height: 2.5rem;
 }
 body {
   min-height: 100vh;
 }
-.mukta {
-  font-family: "Mukta", serif;
-}
 .bg-none {
   background: none;
 }
-
 .input {
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  height: var(--form-height);
   box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.btn {
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.input-primary {
+  height: 46px;
+  font-size: 18px;
+  border-radius: 6px;
+  padding-left: 48px;
+  background-image: url("icons/camera.png");
+  background-repeat: no-repeat;
+  background-position-x: 16px;
+  background-position-y: center;
+}
+.btn-primary {
+  color: white;
+  background-color: black;
+  border-radius: 6px;
+  border-color: black;
+  height: 46px;
+  flex: 1 0 auto;
+  padding: 0.5rem 1.75rem;
 }
 
 .input::placeholder {
