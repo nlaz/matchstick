@@ -1,10 +1,10 @@
 import React from "react";
 
 const HeaderSection = () => (
-  <div>
-    <h1 className="fw6 mb0">Design with Confidence</h1>
+  <div className="tc mv5 center">
+    <h1 className="f2 fw6 mb0">Visually compare your code and design.</h1>
     <p className="lead mt2">
-      Compare your mockups with your live site to pinpoint the details.
+      Compare your mockups with your live site to pinpoint the missing details.
     </p>
   </div>
 );

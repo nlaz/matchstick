@@ -25,7 +25,7 @@ const FormSection = () => (
           />
         </div>
         <div className="flex items-end ml1">
-          <button className="ba b--navy ph3 pv2 bg-navy br2 gold">
+          <button className="ba b--navy ph3 pv2 bg-navy br2 white">
             Submit
           </button>
         </div>

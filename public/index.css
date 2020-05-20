@@ -50,7 +50,7 @@ body {
 
 .checkbox:checked + .checkbox-wrapper .checkbox-toggle {
   left: 14px;
-  background-color: var(--gold);
+  background-color: var(--white);
 }
 
 .checkbox:checked + {

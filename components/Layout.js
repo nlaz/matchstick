@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const Layout = ({ children }) => (
   <div
-    className="sans-serif bg-gold flex flex-column"
+    className="sans-serif bg-washed-blue flex flex-column"
     style={{ minHeight: "100vh" }}
   >
     <Head>
