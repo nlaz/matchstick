@@ -2,18 +2,22 @@ import React from "react";
 import { Download } from "react-feather";
 
 import Input from "../../components/Input";
+import comparison from "../../images/matchstick-comparison.jpg";
 
 const Form = () => (
   <div className="mr3" style={{ flex: 1 }}>
     <div className="flex mb4">
       <Input
         placeholder="Enter your website link"
-        className="mr2 input-primary"
+        className="mr3 input-primary"
       />
       <button className="btn btn-primary flex items-center">
         <Download size={18} />
         <span className="ml2 mr2">Upload mockup file</span>
       </button>
+    </div>
+    <div className="bg-white shadow-4 center pa4 br3">
+      <img src={comparison} />
     </div>
   </div>
 );
@@ -39,7 +43,7 @@ const Options = () => (
 );
 
 const FormSection = () => (
-  <div className="flex">
+  <div className="flex mb4">
     <Form />
     <Options />
   </div>
