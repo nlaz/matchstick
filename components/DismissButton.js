@@ -1,4 +1,5 @@
 import React from "react";
+import { X } from "react-feather";
 
 const DismissButton = ({ onClick }) => (
   <button
@@ -6,13 +7,7 @@ const DismissButton = ({ onClick }) => (
     onClick={onClick}
     style={{ marginLeft: "auto" }}
   >
-    <img
-      src={require("../dismiss.svg")}
-      alt="Dismiss modal"
-      height="20px"
-      width="20px"
-      style={{ opacity: 0.4 }}
-    />
+    <X />
   </button>
 );
 

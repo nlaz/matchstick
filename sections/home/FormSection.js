@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import { Download, Maximize } from "react-feather";
 
 import Input from "../../components/Input";
+import ShowModal from "../../components/ShowModal";
+import input from "../../images/matchstick-input.jpg";
+import output from "../../images/matchstick-output.jpg";
 import comparison from "../../images/matchstick-comparison.jpg";
 
 const Form = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div className="mr3" style={{ flex: 1 }}>
+      {showModal && (
+        <ShowModal
+          onDismiss={() => setShowModal(false)}
+          input={input}
+          output={output}
+          comparison={comparison}
+        />
+      )}
       <div className="flex mb4">
         <Input
           placeholder="Enter your website link"
