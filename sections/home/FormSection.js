@@ -8,7 +8,7 @@ import output from "../../images/matchstick-output.jpg";
 import comparison from "../../images/matchstick-comparison.jpg";
 
 const Form = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   return (
     <div className="mr3" style={{ flex: 1 }}>
       {showModal && (

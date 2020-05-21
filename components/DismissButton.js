@@ -3,11 +3,11 @@ import { X } from "react-feather";
 
 const DismissButton = ({ onClick }) => (
   <button
-    className="bg-transparent bn f3 db"
     onClick={onClick}
-    style={{ marginLeft: "auto" }}
+    className="bg-transparent f3 flex justify-center items-center pointer bn br-100 mt3 moon-gray"
+    style={{ marginLeft: "auto", height: "48px", width: "48px" }}
   >
-    <X />
+    <X size={48} />
   </button>
 );
 

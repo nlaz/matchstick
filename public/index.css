@@ -7,6 +7,7 @@
   --form-height: 2.5rem;
 }
 body {
+  position: relative;
   min-height: 100vh;
 }
 .bg-none {
