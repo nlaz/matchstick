@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import { Upload, Maximize, ChevronRight, X } from "react-feather";
 import FileBase64 from "react-file-base64";
+import compareImages from "resemblejs/compareImages";
 
 import Input from "../../components/Input";
 import ShowModal from "../../components/ShowModal";
 import input from "../../images/matchstick-input.jpg";
 import output from "../../images/matchstick-output.jpg";
-import comparison from "../../images/matchstick-comparison.jpg";
+
+const options = {
+  output: {
+    errorColor: {
+      red: 255,
+      green: 240,
+      blue: 11
+    },
+    errorType: "flat",
+    transparency: 0.4,
+    largeImageThreshold: 2400,
+    useCrossOrigin: false,
+    outputDiff: true
+  },
+  scaleToSameSize: true,
+  ignore: "less"
+};
 
 const Options = () => {
   const [showOptions, setShowOptions] = useState(true);
@@ -42,24 +59,48 @@ const Options = () => {
 };
 
 class Form extends React.Component {
-  state = { url: "", capture: {}, upload: {}, showModal: false };
+  state = {
+    url: "",
+    capture: "",
+    upload: {},
+    comparison: "",
+    showModal: false
+  };
 
   setShowModal = val => this.setState({ showModal: val });
 
   onSubmit = () => {
     const { url } = this.state;
-    if (url.length === 0) return false;
+    if (url.length === 0) return;
 
     fetch(`/api/capture?url=${url}`)
       .then(response => response.json())
       .then(data => {
         this.setState({ capture: data.image });
+        this.getComparison();
       });
+  };
+
+  getComparison = async () => {
+    const { capture, upload } = this.state;
+    if (!capture && Object.keys(upload).length === 0) return;
+    console.log(capture.data, upload);
+
+    try {
+      const data = await compareImages(upload.base64, upload.base64, options);
+      console.log("data", data);
+      console.log(data.getImageDataUrl());
+
+      this.setState({ comparison: data.getImageDataUrl() });
+      this.props.setComparison(data.getImageDataUrl());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onFileUpload = e => {
     const files = e.target.files;
-    if (files.length === 0) return false;
+    if (files.length === 0) return;
     const file = files[0];
     const reader = new FileReader();
 
@@ -77,7 +118,7 @@ class Form extends React.Component {
   };
 
   render() {
-    const { upload, showModal } = this.state;
+    const { capture, upload, showModal } = this.state;
     return (
       <div className="mr4" style={{ width: "420px" }}>
         {showModal && (
@@ -137,7 +178,7 @@ class Form extends React.Component {
   }
 }
 
-const Results = ({ setShowModal }) => (
+const Results = ({ comparison, setShowModal }) => (
   <div className="bg-white shadow-4 center pa4 br3 relative">
     <img src={comparison} />
     <div
@@ -151,12 +192,14 @@ const Results = ({ setShowModal }) => (
 );
 
 const FormSection = () => {
+  const defaultImage = require("../../images/matchstick-comparison.jpg");
   const [showModal, setShowModal] = useState(false);
+  const [comparison, setComparison] = useState(defaultImage);
 
   return (
     <div className="flex mb5 ph3">
-      <Form />
-      <Results setShowModal={setShowModal} />
+      <Form setComparison={setComparison} />
+      <Results comparison={comparison} setShowModal={setShowModal} />
     </div>
   );
 };
