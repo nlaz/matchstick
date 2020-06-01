@@ -12,17 +12,31 @@ const AboutPage = () => (
       <h1 className="mb2">/matchstick</h1>
       <div className="bb" />
       <p className="lh-copy">
-        This site was created by Elizabeth, Niko, and Justin, on a bus, a{" "}
+        Matchstick was originally created by{" "}
+        <Anchor className="navy" href="https://twitter.com/nikolazaris">
+          Niko
+        </Anchor>
+        ,{" "}
+        <Anchor className="navy" href="https://twitter.com/MusingMurmurs">
+          Elizabeth
+        </Anchor>
+        , and{" "}
+        <Anchor className="navy" href="https://twitter.com/justinisaf">
+          Justin
+        </Anchor>
+        , on a bus, a{" "}
         <Anchor className="navy" href="https://startupbus.com/">
           StartupBus
         </Anchor>
-        . Because of your support, we won first place in the competition and
-        since then its been crazy.
+        . We were part of a bus-based startup competition as we traveled from
+        New York to New Orlean. After a wild four days of hacking together an
+        MVP, Matchstick won first place and we took home some bragging rights.
+        🏆
       </p>
 
       <p className="lh-copy">
-        We plan to continue working on this project as quickly as possible. You
-        can do us a favor and sign up to hear our future updates.
+        Now Matchstick lives on as a free tool for designers and developers. We
+        hope you find it useful. Let us know if you enjoy it.
       </p>
     </div>
     <Footer />

@@ -30,13 +30,15 @@ body {
 }
 .input-primary {
   height: 46px;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 6px;
   padding-left: 48px;
   background-image: url("icons/camera.png");
   background-repeat: no-repeat;
   background-position-x: 16px;
   background-position-y: center;
+  border: 1px solid #d1d5da;
+  box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.025);
 }
 .btn-primary {
   color: white;
@@ -47,9 +49,25 @@ body {
   flex: 1 0 auto;
   padding: 0.5rem 1.75rem;
 }
+.btn-upload {
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid black;
+  height: 44px;
+  flex: 1 0 auto;
+  cursor: pointer;
+}
+
+#file-upload {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
 
 .input::placeholder {
-  color: var(--navy-40);
+  color: #aeb2b8;
 }
 .navy-60 {
   color: var(--navy-60);
