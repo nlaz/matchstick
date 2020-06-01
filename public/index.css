@@ -28,32 +28,24 @@ body {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
-.input-primary {
-  height: 46px;
-  font-size: 16px;
-  border-radius: 6px;
-  padding-left: 48px;
-  background-image: url("icons/camera.png");
-  background-repeat: no-repeat;
-  background-position-x: 16px;
-  background-position-y: center;
-  border: 1px solid #d1d5da;
-  box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.025);
-}
 .btn-primary {
+  color: black;
+  background-color: transparent;
+  border: 1px solid black;
+  height: 40px;
+  flex: 1 0 auto;
+  padding: 0.5rem 0.75rem;
+}
+.btn-primary:hover {
+  transition: 0.2s all ease-in-out;
   color: white;
   background-color: black;
-  border-radius: 6px;
-  border-color: black;
-  height: 46px;
-  flex: 1 0 auto;
-  padding: 0.5rem 1.75rem;
 }
 .btn-upload {
   background-color: white;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 1px solid black;
-  height: 44px;
+  height: 38px;
   flex: 1 0 auto;
   cursor: pointer;
 }
@@ -66,9 +58,6 @@ body {
   height: 1px;
 }
 
-.input::placeholder {
-  color: #aeb2b8;
-}
 .navy-60 {
   color: var(--navy-60);
 }
