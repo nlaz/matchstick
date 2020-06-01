@@ -13,7 +13,7 @@ const Options = () => {
 
   return (
     <div>
-      <div class="flex justify-between items-center mt5">
+      <div className="flex justify-between items-center mt5">
         <div className="f4 fw5">Options</div>
         <div className="silver b--moon-gray ph1 pointer f7 ba br2 ph2 pv1">
           Reset
@@ -23,16 +23,16 @@ const Options = () => {
         <div>
           <div className="mb3 pb1 mt3 pt2">
             <label className="f6 db mid-gray mb2">Orientation</label>
-            <Input value="Vertical" />
+            <Input defaultValue="Vertical" />
           </div>
           <div className="mb3 pb1 flex">
             <div className="w-100 mr2">
               <label className="f6 db mid-gray mb2">Width</label>
-              <Input value="1080px" />
+              <Input defaultValue="1080px" />
             </div>
             <div className="w-100 ml2">
               <label className="f6 db mid-gray mb2">Height</label>
-              <Input value="3080px" />
+              <Input defaultValue="3080px" />
             </div>
           </div>
         </div>
@@ -42,13 +42,19 @@ const Options = () => {
 };
 
 class Form extends React.Component {
-  state = { capture: {}, upload: {}, showModal: false };
+  state = { url: "", capture: {}, upload: {}, showModal: false };
 
   setShowModal = val => this.setState({ showModal: val });
 
-  onClick = () => {
-    console.log("File inpute", this.fileInput);
-    this.fileInput.trigger("click");
+  onSubmit = () => {
+    const { url } = this.state;
+    if (url.length === 0) return false;
+
+    fetch(`/api/capture?url=${url}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ capture: data.image });
+      });
   };
 
   onFileUpload = e => {
@@ -72,7 +78,6 @@ class Form extends React.Component {
 
   render() {
     const { upload, showModal } = this.state;
-    console.log("Upload", upload);
     return (
       <div className="mr4" style={{ width: "420px" }}>
         {showModal && (
@@ -86,7 +91,10 @@ class Form extends React.Component {
         <div className="mb4 pb2">
           <div className="w-100 mb3 pb1">
             <div className="fw5 pb2">Website link</div>
-            <Input placeholder="Enter your website link" />
+            <Input
+              onChange={({ target }) => this.setState({ url: target.value })}
+              placeholder="Enter your website link"
+            />
           </div>
           <div className="w-100 relative mb3 pb1">
             <div className="fw5 pb2">Upload your designs</div>
@@ -115,7 +123,10 @@ class Form extends React.Component {
               </div>
             )}
           </div>
-          <button className="btn btn-primary flex items-center flex justify-center mt3 ml-auto pointer">
+          <button
+            onClick={this.onSubmit}
+            className="btn btn-primary flex items-center flex justify-center mt3 ml-auto pointer"
+          >
             <span className="w-100 ml2 pl1">Submit</span>
             <ChevronRight width={24} />
           </button>

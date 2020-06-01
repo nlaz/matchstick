@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "capture-website": "^1.0.0",
     "next": "9.3.5",
     "next-images": "^1.4.0",
+    "node-fetch": "^2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",
