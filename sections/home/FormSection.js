@@ -13,16 +13,16 @@ const options = {
     errorColor: {
       red: 255,
       green: 240,
-      blue: 11
+      blue: 11,
     },
     errorType: "flat",
     transparency: 0.4,
     largeImageThreshold: 2400,
     useCrossOrigin: false,
-    outputDiff: true
+    outputDiff: true,
   },
   scaleToSameSize: true,
-  ignore: "less"
+  ignore: "less",
 };
 
 const Options = () => {
@@ -64,19 +64,20 @@ class Form extends React.Component {
     capture: "",
     upload: {},
     comparison: "",
-    showModal: false
+    showModal: false,
   };
 
-  setShowModal = val => this.setState({ showModal: val });
+  setShowModal = (val) => this.setState({ showModal: val });
 
   onSubmit = () => {
     const { url } = this.state;
     if (url.length === 0) return;
 
     fetch(`/api/capture?url=${url}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({ capture: data.image });
+        console.log("Capture", data);
         this.getComparison();
       });
   };
@@ -84,10 +85,10 @@ class Form extends React.Component {
   getComparison = async () => {
     const { capture, upload } = this.state;
     if (!capture && Object.keys(upload).length === 0) return;
-    console.log(capture.data, upload);
+    console.log(capture, upload);
 
     try {
-      const data = await compareImages(upload.base64, upload.base64, options);
+      const data = await compareImages(upload.base64, capture, options);
       console.log("data", data);
       console.log(data.getImageDataUrl());
 
@@ -98,7 +99,7 @@ class Form extends React.Component {
     }
   };
 
-  onFileUpload = e => {
+  onFileUpload = (e) => {
     const files = e.target.files;
     if (files.length === 0) return;
     const file = files[0];
@@ -111,7 +112,7 @@ class Form extends React.Component {
         type: file.type,
         size: Math.round(file.size / 1000) + " kB",
         base64: reader.result,
-        file: file
+        file: file,
       };
       this.setState({ upload: info });
     };
