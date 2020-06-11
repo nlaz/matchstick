@@ -1,5 +1,6 @@
 const prependUrl = require("../../helpers/prependHttp");
 const captureWebsite = require("capture-website");
+const uploadImage = require("../../helpers/uploadImage");
 
 const options = {
   width: 1440,
@@ -20,10 +21,10 @@ export default async (req, res) => {
 
   try {
     const data = await getCapture(prependUrl(url));
-    const uri = `data:image/png;base64;${data}`;
+    const image = await uploadImage("tmp/capture.png");
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ url: prependUrl(url), image: uri }));
+    res.end(JSON.stringify({ url: prependUrl(url), image: image.Location }));
   } catch (error) {
     console.log(error);
     res.statusCode = 500;

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "aws-sdk": "^2.694.0",
     "capture-website": "^1.0.0",
     "next": "9.3.5",
     "next-images": "^1.4.0",
