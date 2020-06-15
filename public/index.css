@@ -16,7 +16,7 @@ body {
 .select {
   height: var(--form-height);
   box-sizing: border-box;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 5px;
   width: 100%;
 }
@@ -25,6 +25,9 @@ body {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   border-radius: 5px;
+}
+.checkbox {
+  margin-right: 0.5rem;
 }
 .btn {
   border-radius: 5px;
