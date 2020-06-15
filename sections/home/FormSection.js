@@ -3,6 +3,7 @@ import { Upload, Maximize, ChevronRight, X } from "react-feather";
 import FileBase64 from "react-file-base64";
 import compareImages from "resemblejs/compareImages";
 
+import * as api from "../../helpers/apiActions";
 import Input from "../../components/Input";
 import ShowModal from "../../components/ShowModal";
 import input from "../../images/matchstick-input.jpg";
@@ -65,35 +66,19 @@ class Form extends React.Component {
     upload: {},
     comparison: "",
     showModal: false,
+    image1: "",
+    image2: "",
+    result: "",
   };
 
-  setShowModal = (val) => this.setState({ showModal: val });
-
-  onSubmit = () => {
-    const { url } = this.state;
+  onSubmit = async () => {
+    const { url, mockup } = this.state;
     if (url.length === 0) return;
 
-    fetch(`/api/capture?url=${url}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ capture: data.image });
-        console.log("Capture", data);
-        this.getComparison();
-      });
-  };
-
-  getComparison = async () => {
-    const { capture, upload } = this.state;
-    if (!capture && Object.keys(upload).length === 0) return;
-    console.log(capture, upload);
-
     try {
-      const data = await compareImages(upload.base64, capture, options);
-      console.log("data", data);
-      console.log(data.getImageDataUrl());
-
-      this.setState({ comparison: data.getImageDataUrl() });
-      this.props.setComparison(data.getImageDataUrl());
+      const { data } = await api.fetchComparison(url, mockup);
+      const { image1, image2, result } = data;
+      this.props.setResults({ image1, image2, result });
     } catch (error) {
       console.log(error);
     }
@@ -122,20 +107,19 @@ class Form extends React.Component {
     const { capture, upload, showModal } = this.state;
     return (
       <div className="mr4" style={{ width: "420px" }}>
-        {showModal && (
-          <ShowModal
-            onDismiss={() => this.setShowModal(false)}
-            input={input}
-            output={output}
-            comparison={comparison}
-          />
-        )}
         <div className="mb4 pb2">
           <div className="w-100 mb3 pb1">
             <div className="fw5 pb2">Website link</div>
             <Input
               onChange={({ target }) => this.setState({ url: target.value })}
               placeholder="Enter your website link"
+            />
+          </div>
+          <div className="w-100 mb3 pb1">
+            <div className="fw5 pb2">Mockup link</div>
+            <Input
+              onChange={({ target }) => this.setState({ mockup: target.value })}
+              placeholder="Enter your mockup link"
             />
           </div>
           <div className="w-100 relative mb3 pb1">
@@ -195,12 +179,23 @@ const Results = ({ comparison, setShowModal }) => (
 const FormSection = () => {
   const defaultImage = require("../../images/matchstick-comparison.jpg");
   const [showModal, setShowModal] = useState(false);
-  const [comparison, setComparison] = useState(defaultImage);
+  const [results, setResults] = useState({});
 
   return (
     <div className="flex mb5 ph3">
-      <Form setComparison={setComparison} />
-      <Results comparison={comparison} setShowModal={setShowModal} />
+      {showModal && (
+        <ShowModal
+          onDismiss={() => setShowModal(false)}
+          image1={results.image1}
+          image2={results.image2}
+          result={results.result}
+        />
+      )}
+      <Form setResults={setResults} />
+      <Results
+        comparison={results.result || defaultImage}
+        setShowModal={setShowModal}
+      />
     </div>
   );
 };

@@ -13,11 +13,11 @@ const Index = ({ active }) => (
   />
 );
 
-const onPrev = index => (index > 0 ? index - 1 : 2);
-const onNext = index => (index + 1) % 3;
+const onPrev = (index) => (index > 0 ? index - 1 : 2);
+const onNext = (index) => (index + 1) % 3;
 
-const ShowModal = ({ onDismiss, input, output, comparison }) => {
-  const images = [input, output, comparison];
+const ShowModal = ({ onDismiss, image1, image2, result }) => {
+  const images = [image1, image2, result];
   const [index, setIndex] = useState(0);
   return (
     <Modal

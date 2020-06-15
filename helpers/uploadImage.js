@@ -2,15 +2,6 @@ const AWS = require("aws-sdk");
 const fs = require("fs");
 const path = require("path");
 
-//configuring the AWS environment
-// TODO: Regenerate API keys
-AWS.config.update({
-  accessKeyId: "AKIAJ6JA3WXM244BLRMA",
-  secretAccessKey: "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",
-});
-
-const s3 = new AWS.S3();
-
 //configuring parameters
 const getParams = (filePath) => ({
   Bucket: "matchstick-assets",
