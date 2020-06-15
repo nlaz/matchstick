@@ -1,30 +1,14 @@
 import React, { useState } from "react";
 import { Upload, Maximize, ChevronRight, X } from "react-feather";
-import FileBase64 from "react-file-base64";
-import compareImages from "resemblejs/compareImages";
 
 import * as api from "../../helpers/apiActions";
 import Input from "../../components/Input";
+import Select from "../../components/Select";
 import ShowModal from "../../components/ShowModal";
 import input from "../../images/matchstick-input.jpg";
 import output from "../../images/matchstick-output.jpg";
 
-const options = {
-  output: {
-    errorColor: {
-      red: 255,
-      green: 240,
-      blue: 11,
-    },
-    errorType: "flat",
-    transparency: 0.4,
-    largeImageThreshold: 2400,
-    useCrossOrigin: false,
-    outputDiff: true,
-  },
-  scaleToSameSize: true,
-  ignore: "less",
-};
+import devices from "../../helpers/devices";
 
 const Options = () => {
   const [showOptions, setShowOptions] = useState(true);
@@ -40,6 +24,14 @@ const Options = () => {
       {showOptions && (
         <div>
           <div className="mb3 pb1 mt3 pt2">
+            <label className="f6 db mid-gray mb2">Device</label>
+            <Select placeholder="Select your Device">
+              {devices.map((device, key) => (
+                <Select.Option key={key}>{device.name}</Select.Option>
+              ))}
+            </Select>
+          </div>
+          <div className="mb3 pb1 pt2">
             <label className="f6 db mid-gray mb2">Orientation</label>
             <Input defaultValue="Vertical" />
           </div>
@@ -72,11 +64,11 @@ class Form extends React.Component {
   };
 
   onSubmit = async () => {
-    const { url, mockup } = this.state;
+    const { url, mockup, options } = this.state;
     if (url.length === 0) return;
 
     try {
-      const { data } = await api.fetchComparison(url, mockup);
+      const { data } = await api.fetchComparison(url, mockup, options);
       const { image1, image2, result } = data;
       this.props.setResults({ image1, image2, result });
     } catch (error) {

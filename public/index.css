@@ -13,6 +13,13 @@ body {
 .bg-none {
   background: none;
 }
+.select {
+  height: var(--form-height);
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  width: 100%;
+}
 .input {
   height: var(--form-height);
   box-sizing: border-box;

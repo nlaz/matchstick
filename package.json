@@ -11,15 +11,13 @@
     "@zeit/next-css": "^1.0.1",
     "aws-sdk": "^2.694.0",
     "axios": "^0.19.2",
-    "capture-website": "^1.0.0",
+    "classnames": "^2.2.6",
     "next": "9.3.5",
     "next-images": "^1.4.0",
     "node-fetch": "^2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",
-    "react-file-base64": "^1.0.3",
-    "resemblejs": "^3.2.4",
     "tachyons": "^4.11.1"
   }
 }
