@@ -9,6 +9,8 @@
 body {
   position: relative;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .bg-none {
   background: none;
@@ -25,6 +27,8 @@ body {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   border-radius: 5px;
+}
+.input:placeholder {
 }
 .checkbox {
   margin-right: 0.5rem;
@@ -44,7 +48,7 @@ body {
   border: 1px solid black;
   height: 40px;
   flex: 1 0 auto;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.65rem;
 }
 .btn-primary:hover {
   transition: 0.2s all ease-in-out;

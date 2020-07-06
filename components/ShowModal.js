@@ -40,9 +40,9 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
         </div>
       </div>
       <div className="overlay-wrapper relative">
-        <div className="flex">
+        <div className="flex justify-center">
           <div
-            className="mr3 mt7 moon-gray"
+            className="mr3 mt7 dark-gray"
             onClick={() => setIndex(onPrev(index))}
           >
             <ChevronLeft size={40} />
@@ -55,7 +55,7 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
             />
           </div>
           <div
-            className="ml3 mt7 moon-gray"
+            className="ml3 mt7 dark-gray"
             onClick={() => setIndex(onNext(index))}
           >
             <ChevronRight size={40} />
