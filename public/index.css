@@ -1,7 +1,5 @@
 :root {
   --navy: rgba(0, 27, 68);
-  --navy-60: rgba(0, 27, 68, 0.6);
-  --navy-40: rgba(0, 27, 68, 0.4);
   --toggle-size: 14px;
   --gold: #ffb700;
   --form-height: 2.5rem;
@@ -27,8 +25,7 @@ body {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-}
-.input:placeholder {
+  font-size: 15px;
 }
 .checkbox {
   margin-right: 0.5rem;
@@ -47,13 +44,25 @@ body {
   background-color: transparent;
   border: 1px solid black;
   height: 40px;
-  flex: 1 0 auto;
-  padding: 0.5rem 0.65rem;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s all ease-in-out;
 }
 .btn-primary:hover {
-  transition: 0.2s all ease-in-out;
   color: white;
   background-color: black;
+}
+.btn-primary.loading {
+  color: white;
+  background-color: black;
+}
+.spin {
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 .btn-upload {
   background-color: white;
@@ -72,10 +81,6 @@ body {
   height: 1px;
 }
 
-.navy-60 {
-  color: var(--navy-60);
-}
-
 .checkbox-toggle {
   height: var(--toggle-size);
   width: var(--toggle-size);
@@ -90,17 +95,28 @@ body {
   height: 18px;
   border-radius: 999px;
 }
-
 .checkbox:checked + .checkbox-wrapper {
   background-color: var(--navy) !important;
   border-color: var(--navy) !important;
 }
-
 .checkbox:checked + .checkbox-wrapper .checkbox-toggle {
   left: 14px;
   background-color: var(--white);
 }
-
 .checkbox:checked + {
   background: black;
+}
+
+.results.loading {
+  transition: all 0.5s ease-in-out;
+  filter: grayscale(1) brightness(3) opacity(0.25);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

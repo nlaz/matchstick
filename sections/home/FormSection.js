@@ -1,44 +1,16 @@
 import React, { useState } from "react";
-import { Upload, Maximize, ChevronRight, X } from "react-feather";
+import { Upload, Maximize, ChevronRight, X, Loader } from "react-feather";
+import cx from "classnames";
 
-import Options from "./OptionsSection";
 import * as api from "../../helpers/apiActions";
+import Options from "./OptionsSection";
+import LoadingView from "./LoadingView";
 import Input from "../../components/Input";
 import ShowModal from "../../components/ShowModal";
 import input from "../../images/matchstick-input.jpg";
 import output from "../../images/matchstick-output.jpg";
 
 import devices from "../../helpers/devices";
-
-const FileUpload = () => (
-  <div className="w-100 relative mb3 pb1">
-    <div className="fw5 pb2">Upload your designs</div>
-    <label
-      htmlFor="file-upload"
-      className="btn-upload flex items-center w-100 flex justify-center"
-    >
-      <Upload size={18} />
-      <span className="ml2 mr2">Add file(s)</span>
-    </label>
-    <input type="file" id="file-upload" onChange={this.onFileUpload} />
-    {Object.keys(upload).length > 0 && (
-      <div className="f6 flex items-center mt1 pt1 w-100">
-        <img
-          src={upload.base64}
-          style={{ width: "20px", height: "20px" }}
-          className="br2 mh1"
-        />
-        <div className="ml2 w-100 mr4">{upload.name}</div>
-        <div
-          className="flex pointer"
-          onClick={() => this.setState({ upload: {} })}
-        >
-          <X size={18} />
-        </div>
-      </div>
-    )}
-  </div>
-);
 
 class Form extends React.Component {
   state = {
@@ -60,10 +32,15 @@ class Form extends React.Component {
     const { url, mockup, options } = this.state;
     if (url.length === 0) return;
 
+    this.setState({ isLoading: true });
+    this.props.setLoading(true);
+
     try {
       const { data } = await api.fetchComparison(url, mockup, options);
       const { image1, image2, result } = data;
+      this.props.setLoading(false);
       this.props.setResults({ image1, image2, result });
+      this.props.setOptions({ options });
     } catch (error) {
       console.log(error);
     }
@@ -89,35 +66,70 @@ class Form extends React.Component {
   };
 
   render() {
+    const { isLoading } = this.props;
     const { capture, upload, showModal } = this.state;
 
     return (
-      <div className="mr4" style={{ width: "420px" }}>
+      <div className="mr4 w-100" style={{ width: "360px", flex: "1 0 auto" }}>
         <form className="mb4 pb2" onSubmit={this.onSubmit}>
           <div className="w-100 mb3 pb1">
             <div className="fw5 pb2">Website link</div>
             <Input
               onChange={({ target }) => this.setState({ url: target.value })}
-              placeholder="Enter your website link"
-              className="b--silver"
+              placeholder="Paste your link, https://github.com"
+              className="b--black"
             />
           </div>
-          <div className="w-100 mb3 pb1">
-            <div className="fw5 pb2">Mockup link</div>
-            <Input
-              onChange={({ target }) => this.setState({ mockup: target.value })}
-              placeholder="Enter your mockup link"
-              className="b--silver"
-            />
+          <div className="w-100 relative mb3 pb1">
+            <div className="fw5 pb2">Upload your designs</div>
+            <div className="flex">
+              <div className="relative w-100">
+                <label
+                  htmlFor="file-upload"
+                  className="btn-upload flex items-center flex justify-center"
+                >
+                  <Upload size={18} />
+                  <span className="ml2 mr2">Add file(s)</span>
+                </label>
+                <input
+                  type="file"
+                  id="file-upload"
+                  onChange={this.onFileUpload}
+                />
+                {Object.keys(upload).length > 0 && (
+                  <div className="f6 flex items-center mt1 pt1 w-100">
+                    <img
+                      src={upload.base64}
+                      style={{ width: "20px", height: "20px" }}
+                      className="br2 mh1"
+                    />
+                    <div className="ml2 w-100 mr4 truncate">{upload.name}</div>
+                    <div
+                      className="flex pointer"
+                      onClick={() => this.setState({ upload: {} })}
+                    >
+                      <X size={18} />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button
+                type="submit"
+                onClick={this.onSubmit}
+                className={cx("btn btn-primary ml2", {
+                  pointer: !isLoading,
+                  loading: isLoading,
+                })}
+                disabled={isLoading}
+              >
+                {!isLoading ? (
+                  <ChevronRight width={24} />
+                ) : (
+                  <Loader width={20} className="spin" />
+                )}
+              </button>
+            </div>
           </div>
-          <button
-            onClick={this.onSubmit}
-            className="btn btn-primary flex items-center flex justify-center mt3 ml-auto pointer"
-            type="submit"
-          >
-            <span className="w-100 ml2 pl1">Submit</span>
-            <ChevronRight width={24} />
-          </button>
           <Options onChange={this.setOptions} />
         </form>
       </div>
@@ -125,9 +137,10 @@ class Form extends React.Component {
   }
 }
 
-const Results = ({ comparison, setShowModal }) => (
-  <div className="bg-white shadow-4 center pa4 br3 relative">
-    <img src={comparison} />
+const Results = ({ isLoading, comparison, setShowModal, options }) => (
+  <div className="bg-white shadow-4 center pa4 br3 relative w-100">
+    <img src={comparison} className={cx("results", { loading: isLoading })} />
+    {isLoading && <LoadingView />}
     <div
       className="pointer bg-white absolute flex items-center justify-center shadow-5 top-2 right-2 ma4 br-100"
       style={{ width: "56px", height: "56px" }}
@@ -141,7 +154,9 @@ const Results = ({ comparison, setShowModal }) => (
 const FormSection = () => {
   const defaultImage = require("../../images/matchstick-comparison.jpg");
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [results, setResults] = useState({});
+  const [options, setOptions] = useState({});
 
   return (
     <div className="flex mb5 ph3">
@@ -153,8 +168,15 @@ const FormSection = () => {
           result={results.result}
         />
       )}
-      <Form setResults={setResults} />
+      <Form
+        setResults={setResults}
+        setOptions={setOptions}
+        setLoading={setLoading}
+        isLoading={isLoading}
+      />
       <Results
+        isLoading={isLoading}
+        options={options}
         comparison={results.result || defaultImage}
         setShowModal={setShowModal}
       />
