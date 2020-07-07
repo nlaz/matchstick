@@ -25,6 +25,7 @@ const values = [
   "Renaming Figma layers...",
   "Making pixel values more even...",
   "Aligning items to grid...",
+  "Booting up terminal...",
 ];
 
 class LoadingView extends Component {
