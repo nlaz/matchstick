@@ -8,7 +8,10 @@ import Anchor from "../components/Anchor";
 const AboutPage = () => (
   <Layout>
     <Navbar />
-    <div className="ph3 navy mw6 center w-100 mt4 pt5" style={{ flex: 1 }}>
+    <div
+      className="ph3 ph4-m navy mw6 center w-100 mt4 pt5"
+      style={{ flex: 1 }}
+    >
       <h1 className="mb2">/matchstick</h1>
       <div className="bb" />
       <p className="lh-copy">

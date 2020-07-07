@@ -59,7 +59,7 @@ class OptionsSection extends React.Component {
   render() {
     const { showOptions } = this.state;
     return (
-      <div className="ba mt5 br3 b--moon-gray bg-white">
+      <div className="ba mt4 mb3 mt5-l br3 b--moon-gray bg-white">
         <div
           className="flex justify-between items-center ph3 pv2 pointer br3"
           onClick={this.toggleShowOptions}

@@ -11,7 +11,7 @@ import ResultsSection from "../sections/home/ResultsSection";
 const HomePage = () => (
   <Layout>
     <Navbar />
-    <div className="ph4 navy center w-100" style={{ flex: 1 }}>
+    <div className="ph3 ph4-m navy center w-100" style={{ flex: 1 }}>
       <HeaderSection />
       <FormSection />
     </div>

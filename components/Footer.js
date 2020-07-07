@@ -4,7 +4,7 @@ import Anchor from "./Anchor";
 import Link from "./Link";
 
 const Footer = () => (
-  <div className="flex justify-between w-100 pv3 ph4 center">
+  <div className="flex justify-between items-center w-100 pv3 ph3 ph4-ns center">
     <div className="f6 fw5 navy mv2">Matchstick © 2020</div>
     <div className="mv2">
       <Link to="/about" className="link navy f6 mr3">

@@ -88,7 +88,7 @@ class Form extends React.Component {
     const { capture, upload, showModal } = this.state;
 
     return (
-      <div className="mr4 w-100" style={{ width: "360px", flex: "1 0 auto" }}>
+      <div className="sidebar mr4 w-100">
         <form
           className="mb4 pb2"
           onSubmit={this.onSubmit}
@@ -201,7 +201,7 @@ const FormSection = () => {
   const [options, setOptions] = useState({});
 
   return (
-    <div className="flex mb5 ph3">
+    <div className="flex flex-column flex-row-l mb5 ph3-ns">
       {Object.keys(error).length > 0 && (
         <ErrorView error={error} onDismiss={() => setError({})} />
       )}

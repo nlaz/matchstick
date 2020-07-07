@@ -6,6 +6,7 @@ const values = [
   "Downloading more frontend...",
   "Reinstalling MS Paint...",
   "Moving pixels more left...",
+  "Moving pixels more right...",
   "Making buttons 10% rounder...",
   "Becoming a thought leader...",
   "Adding more gradients...",
@@ -19,6 +20,11 @@ const values = [
   "Arguing with Design Twitter...",
   "Aligning text optically...",
   "Installing dark mode...",
+  "Looking up CSS on StackOverflow...",
+  "Alphabetizing stylesheets...",
+  "Renaming Figma layers...",
+  "Making pixel values more even...",
+  "Aligning items to grid...",
 ];
 
 class LoadingView extends Component {
