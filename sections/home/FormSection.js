@@ -5,6 +5,7 @@ import cx from "classnames";
 import * as api from "../../helpers/apiActions";
 import Options from "./OptionsSection";
 import LoadingView from "./LoadingView";
+import ErrorView from "./ErrorView";
 import Input from "../../components/Input";
 import ShowModal from "../../components/ShowModal";
 import input from "../../images/matchstick-input.jpg";
@@ -23,26 +24,37 @@ class Form extends React.Component {
     image1: "",
     image2: "",
     result: "",
+    urlInputError: "",
+    uploadInputError: "",
   };
 
   setOptions = (options) => this.setState({ options: options });
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const { url, mockup, options } = this.state;
-    if (url.length === 0) return;
+    const { url, upload, mockup, options } = this.state;
+    if (url.length === 0) {
+      return this.setState({ urlInputError: "Link missing" });
+    }
+    if (Object.keys(upload).length === 0) {
+      return this.setState({ uploadInputError: "Mockup missing" });
+    }
 
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, urlInputError: "", uploadInputError: "" });
     this.props.setLoading(true);
 
     try {
-      const { data } = await api.fetchComparison(url, mockup, options);
-      const { image1, image2, result } = data;
+      const response = await api.fetchComparison(url, mockup, options);
+      const { image1, image2, result } = response.data;
       this.props.setLoading(false);
       this.props.setResults({ image1, image2, result });
       this.props.setOptions({ options });
     } catch (error) {
-      console.log(error);
+      this.props.setLoading(false);
+      this.props.setError({
+        message: error.response.data,
+        error: error,
+      });
     }
   };
 
@@ -73,7 +85,14 @@ class Form extends React.Component {
       <div className="mr4 w-100" style={{ width: "360px", flex: "1 0 auto" }}>
         <form className="mb4 pb2" onSubmit={this.onSubmit}>
           <div className="w-100 mb3 pb1">
-            <div className="fw5 pb2">Website link</div>
+            <div className="flex justify-between items-center pb2">
+              <div className="fw5">Website link</div>
+              {this.state.urlInputError && (
+                <div className="f6 fw6 red shake">
+                  *{this.state.urlInputError}
+                </div>
+              )}
+            </div>
             <Input
               onChange={({ target }) => this.setState({ url: target.value })}
               placeholder="Paste your link, https://github.com"
@@ -81,9 +100,16 @@ class Form extends React.Component {
             />
           </div>
           <div className="w-100 relative mb3 pb1">
-            <div className="fw5 pb2">Upload your designs</div>
+            <div className="flex justify-between items-center pb2">
+              <div className="fw5">Upload your designs</div>
+              {this.state.uploadInputError && (
+                <div className="f6 fw6 red shake">
+                  *{this.state.uploadInputError}
+                </div>
+              )}
+            </div>
             <div className="flex">
-              <div className="relative w-100">
+              <div className="relative" style={{ flex: "1 auto" }}>
                 <label
                   htmlFor="file-upload"
                   className="btn-upload flex items-center flex justify-center"
@@ -97,15 +123,20 @@ class Form extends React.Component {
                   onChange={this.onFileUpload}
                 />
                 {Object.keys(upload).length > 0 && (
-                  <div className="f6 flex items-center mt1 pt1 w-100">
+                  <div className="f6 flex items-center mt1 pt1">
                     <img
                       src={upload.base64}
                       style={{ width: "20px", height: "20px" }}
                       className="br2 mh1"
                     />
-                    <div className="ml2 w-100 mr4 truncate">{upload.name}</div>
                     <div
-                      className="flex pointer"
+                      className="ml2 mr4 truncate"
+                      style={{ flex: "1 auto", maxWidth: "220px" }}
+                    >
+                      {upload.name}
+                    </div>
+                    <div
+                      className="flex pointer ml-auto"
                       onClick={() => this.setState({ upload: {} })}
                     >
                       <X size={18} />
@@ -154,12 +185,16 @@ const Results = ({ isLoading, comparison, setShowModal, options }) => (
 const FormSection = () => {
   const defaultImage = require("../../images/matchstick-comparison.jpg");
   const [showModal, setShowModal] = useState(false);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState({});
+  const [error, setError] = useState({});
   const [options, setOptions] = useState({});
 
   return (
     <div className="flex mb5 ph3">
+      {Object.keys(error).length > 0 && (
+        <ErrorView error={error} onDismiss={() => setError({})} />
+      )}
       {showModal && (
         <ShowModal
           onDismiss={() => setShowModal(false)}
@@ -172,6 +207,7 @@ const FormSection = () => {
         setResults={setResults}
         setOptions={setOptions}
         setLoading={setLoading}
+        setError={setError}
         isLoading={isLoading}
       />
       <Results

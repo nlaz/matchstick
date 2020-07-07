@@ -13,6 +13,10 @@ const values = [
   "Making final final changes...",
   "Becoming a unicorn...",
   "Pushing to main branch...",
+  "Congratulating a VC...",
+  "Replacing margins with more padding...",
+  "Replacing padding with more margin...",
+  "Arguing with Design Twitter...",
 ];
 
 class LoadingView extends Component {
