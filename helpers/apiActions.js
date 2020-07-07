@@ -6,9 +6,6 @@ export const fetchComparison = async (input, output, options) => {
   if (options.emulateDevice === "Desktop HD") {
     delete options.emulateDevice;
   }
-  return await axios.post(baseUrl + "/api/images", {
-    input: input,
-    output: output,
-    options: options,
-  });
+  console.log(output);
+  return await axios.post(baseUrl + "/api/comparison", output);
 };

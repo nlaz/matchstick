@@ -32,7 +32,7 @@ class Form extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const { url, upload, mockup, options } = this.state;
+    const { url, upload, options } = this.state;
     if (url.length === 0) {
       return this.setState({ urlInputError: "Link missing" });
     }
@@ -44,37 +44,43 @@ class Form extends React.Component {
     this.props.setLoading(true);
 
     try {
-      const response = await api.fetchComparison(url, mockup, options);
+      const response = await api.fetchComparison(url, upload, options);
       const { image1, image2, result } = response.data;
       this.props.setLoading(false);
       this.props.setResults({ image1, image2, result });
       this.props.setOptions({ options });
     } catch (error) {
       this.props.setLoading(false);
-      this.props.setError({
-        message: error.response.data,
-        error: error,
-      });
+      if (error.response === 400) {
+        this.props.setError({
+          message: error.response.data,
+          error: error,
+        });
+      } else {
+        this.props.setError({
+          message: "Something happened...",
+          error: error,
+        });
+      }
     }
   };
 
   onFileUpload = (e) => {
     const files = e.target.files;
     if (files.length === 0) return;
-    const file = files[0];
-    const reader = new FileReader();
 
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const info = {
-        name: file.name,
-        type: file.type,
-        size: Math.round(file.size / 1000) + " kB",
-        base64: reader.result,
-        file: file,
-      };
-      this.setState({ upload: info });
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const info = {
+      name: file.name,
+      type: file.type,
+      size: Math.round(file.size / 1000) + " kB",
+      data: formData,
+      file: URL.createObjectURL(file),
     };
+    this.setState({ upload: info });
   };
 
   render() {
@@ -83,7 +89,11 @@ class Form extends React.Component {
 
     return (
       <div className="mr4 w-100" style={{ width: "360px", flex: "1 0 auto" }}>
-        <form className="mb4 pb2" onSubmit={this.onSubmit}>
+        <form
+          className="mb4 pb2"
+          onSubmit={this.onSubmit}
+          encType="multipart/form-data"
+        >
           <div className="w-100 mb3 pb1">
             <div className="flex justify-between items-center pb2">
               <div className="fw5">Website link</div>
@@ -125,18 +135,18 @@ class Form extends React.Component {
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
                     <img
-                      src={upload.base64}
+                      src={upload.file}
                       style={{ width: "20px", height: "20px" }}
                       className="br2 mh1"
                     />
                     <div
                       className="ml2 mr4 truncate"
-                      style={{ flex: "1 auto", maxWidth: "220px" }}
+                      style={{ maxWidth: "220px" }}
                     >
                       {upload.name}
                     </div>
                     <div
-                      className="flex pointer ml-auto"
+                      className="flex pointer"
                       onClick={() => this.setState({ upload: {} })}
                     >
                       <X size={18} />

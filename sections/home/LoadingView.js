@@ -17,6 +17,8 @@ const values = [
   "Replacing margins with more padding...",
   "Replacing padding with more margin...",
   "Arguing with Design Twitter...",
+  "Aligning text optically...",
+  "Installing dark mode...",
 ];
 
 class LoadingView extends Component {
