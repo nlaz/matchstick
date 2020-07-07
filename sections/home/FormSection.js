@@ -4,6 +4,7 @@ import cx from "classnames";
 
 import * as api from "../../helpers/apiActions";
 import isValidURL from "../../helpers/isValidURL";
+import createFormData from "../../helpers/createFormData";
 import Options from "./OptionsSection";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
@@ -62,7 +63,8 @@ class Form extends React.Component {
     this.props.setLoading(true);
 
     try {
-      const response = await api.fetchComparison(url, upload, options);
+      const formData = createFormData(url, upload, options);
+      const response = await api.fetchComparison(formData);
       const { image1, image2, result } = response.data;
       this.props.setLoading(false);
       this.props.setResults({ image1, image2, result });
@@ -88,15 +90,13 @@ class Form extends React.Component {
     if (files.length === 0) return;
 
     const file = files[0];
-    const formData = new FormData();
-    formData.append("file", file);
 
     const info = {
       name: file.name,
       type: file.type,
       size: file.size,
-      data: formData,
-      file: URL.createObjectURL(file),
+      file: file,
+      url: URL.createObjectURL(file),
     };
     this.setState({ upload: info });
   };
@@ -154,7 +154,7 @@ class Form extends React.Component {
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
                     <img
-                      src={upload.file}
+                      src={upload.url}
                       style={{
                         width: "20px",
                         height: "20px",
