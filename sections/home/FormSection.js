@@ -169,7 +169,7 @@ class Form extends React.Component {
                       {upload.name}
                     </div>
                     <div
-                      className="flex pointer ml2"
+                      className="flex pointer ml-auto"
                       onClick={() => this.setState({ upload: {} })}
                     >
                       <X size={18} />
