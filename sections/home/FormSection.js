@@ -3,6 +3,7 @@ import { Upload, Maximize, ChevronRight, X, Loader } from "react-feather";
 import cx from "classnames";
 
 import * as api from "../../helpers/apiActions";
+import isValidURL from "../../helpers/isValidURL";
 import Options from "./OptionsSection";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
@@ -30,17 +31,34 @@ class Form extends React.Component {
 
   setOptions = (options) => this.setState({ options: options });
 
+  validateInputs = () => {
+    const { url, upload, options } = this.state;
+    const fileSizeLimit = 50 * 1024 * 1024; // 50 MB
+    let urlInputError = "";
+    let uploadInputError = "";
+
+    if (url.length === 0) {
+      urlInputError = "Missing link";
+    } else if (!isValidURL(url)) {
+      urlInputError = "Invalid link";
+    }
+    if (Object.keys(upload).length === 0) {
+      uploadInputError = "Missing mockup file";
+    } else if (upload.size > fileSizeLimit) {
+      uploadInputError = "File too large";
+    }
+    this.setState({ urlInputError, uploadInputError });
+    return !urlInputError && !uploadInputError;
+  };
+
   onSubmit = async (e) => {
     e.preventDefault();
     const { url, upload, options } = this.state;
-    if (url.length === 0) {
-      return this.setState({ urlInputError: "Link missing" });
-    }
-    if (Object.keys(upload).length === 0) {
-      return this.setState({ uploadInputError: "Mockup missing" });
-    }
 
-    this.setState({ isLoading: true, urlInputError: "", uploadInputError: "" });
+    const isValid = this.validateInputs();
+    if (!isValid) return;
+
+    this.setState({ isLoading: true });
     this.props.setLoading(true);
 
     try {
@@ -76,7 +94,7 @@ class Form extends React.Component {
     const info = {
       name: file.name,
       type: file.type,
-      size: Math.round(file.size / 1000) + " kB",
+      size: file.size,
       data: formData,
       file: URL.createObjectURL(file),
     };
@@ -130,23 +148,28 @@ class Form extends React.Component {
                 <input
                   type="file"
                   id="file-upload"
+                  accept="image/png,image/jpeg,image/jpg"
                   onChange={this.onFileUpload}
                 />
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
                     <img
                       src={upload.file}
-                      style={{ width: "20px", height: "20px" }}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        objectFit: "cover",
+                      }}
                       className="br2 mh1"
                     />
                     <div
-                      className="ml2 mr4 truncate"
+                      className="ml2 mr3 truncate"
                       style={{ maxWidth: "220px" }}
                     >
                       {upload.name}
                     </div>
                     <div
-                      className="flex pointer"
+                      className="flex pointer ml2"
                       onClick={() => this.setState({ upload: {} })}
                     >
                       <X size={18} />

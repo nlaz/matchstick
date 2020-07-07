@@ -1,6 +1,5 @@
 :root {
   --navy: rgba(0, 27, 68);
-  --toggle-size: 14px;
   --gold: #ffb700;
   --form-height: 2.5rem;
 }
@@ -26,9 +25,6 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-size: 15px;
-}
-.checkbox {
-  margin-right: 0.5rem;
 }
 .btn {
   border-radius: 5px;
@@ -90,31 +86,9 @@ body {
   width: 1px;
   height: 1px;
 }
-
-.checkbox-toggle {
-  height: var(--toggle-size);
-  width: var(--toggle-size);
-  border-radius: 100%;
-  transition: all 0.3s cubic-bezier(0.33, 1, 0.66, 1);
-  left: 2px;
-  top: 1px;
-}
-
-.checkbox-wrapper {
-  width: 32px;
-  height: 18px;
-  border-radius: 999px;
-}
-.checkbox:checked + .checkbox-wrapper {
-  background-color: var(--navy) !important;
-  border-color: var(--navy) !important;
-}
-.checkbox:checked + .checkbox-wrapper .checkbox-toggle {
-  left: 14px;
-  background-color: var(--white);
-}
-.checkbox:checked + {
-  background: black;
+.hover-b--mid-gray:hover {
+  transition: all 0.1s ease-in-out;
+  border-color: #555555;
 }
 .sidebar {
   width: 100%;
@@ -125,12 +99,10 @@ body {
     width: 360px;
   }
 }
-
 .results.loading {
   transition: all 0.5s ease-in-out;
   filter: grayscale(1) brightness(3) opacity(0.25);
 }
-
 .shake {
   animation-name: shake;
   animation-duration: 200ms;

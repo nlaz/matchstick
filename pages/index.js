@@ -6,7 +6,6 @@ import Layout from "../components/Layout";
 
 import HeaderSection from "../sections/home/HeaderSection";
 import FormSection from "../sections/home/FormSection";
-import ResultsSection from "../sections/home/ResultsSection";
 
 const HomePage = () => (
   <Layout>

@@ -4,7 +4,6 @@ import cx from "classnames";
 const Select = ({ className, children, placeholder, ...props }) => (
   <select
     className={cx("select", className)}
-    defaultValue={placeholder}
     placeholder={placeholder}
     {...props}
   >

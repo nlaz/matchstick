@@ -48,8 +48,10 @@ class OptionsSection extends React.Component {
       this.onUpdateDimensions()
     );
 
-  onReset = () =>
+  onReset = (e) => {
+    e.stopPropagation();
     this.setState({ ...defaultState, showOptions: this.state.showOptions });
+  };
 
   componentDidMount = () => this.props.onChange(this.state);
 
@@ -67,7 +69,7 @@ class OptionsSection extends React.Component {
           <div className="f5 fw5 w-100">Options</div>
           <div
             onClick={this.onReset}
-            className="dark-gray b--moon-gray ph1 pointer f7 ba br2 ph2 pv1"
+            className="dark-gray hover-b--mid-gray b--moon-gray ph1 pointer f7 ba br2 ph2 pv1"
           >
             Reset
           </div>
@@ -82,7 +84,7 @@ class OptionsSection extends React.Component {
               <Select
                 placeholder="Select your Device"
                 onChange={this.onDeviceChange}
-                defaultValue={this.state.emulateDevice}
+                value={this.state.emulateDevice}
                 className="b--silver "
               >
                 {Object.keys(devices).map((device) => (
@@ -97,7 +99,7 @@ class OptionsSection extends React.Component {
               <Select
                 placeholder="Select Orientation"
                 onChange={this.onOrientationChange}
-                defaultValue={this.state.orientation}
+                value={this.state.orientation}
                 className="b--silver"
               >
                 <Select.Option value="horizontal">Horizontal</Select.Option>
@@ -122,7 +124,9 @@ class OptionsSection extends React.Component {
                 checked={this.state.fullPage}
                 onChange={this.onFullPageChange}
               />
-              <label htmlFor="capture">Compare full page</label>
+              <label htmlFor="capture" className="ml2">
+                Compare full page
+              </label>
             </div>
           </div>
         )}
