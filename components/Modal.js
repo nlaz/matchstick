@@ -9,7 +9,7 @@ class Modal extends Component {
     document.removeEventListener("keyup", this.onKeyUp);
   }
 
-  onKeyUp = e => {
+  onKeyUp = (e) => {
     if (e.keyCode === 27) {
       this.props.onDismiss();
     } else if (e.keyCode === 37) {
@@ -23,11 +23,8 @@ class Modal extends Component {
     const { children } = this.props;
     return (
       <div className="bg-black-60 absolute top-0 bottom-0 left-0 right-0 z-999 pv4 ph6">
-        <div
-          className="ma4 bg-white ph5 pb4 pt3 relative br4 center tc"
-          style={{ boxShadow: "0 4px 8px rgba(0,0,0, .15)" }}
-        >
-          {children}
+        <div className="ma4 bg-white ph4 pb4 pt3 relative br5 center tc shadow-4">
+          <div className="pa2">{children}</div>
         </div>
       </div>
     );

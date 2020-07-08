@@ -229,7 +229,7 @@ const Results = ({ isLoading, result, setShowModal, options }) => (
 );
 
 const FormSection = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState({});
   const [error, setError] = useState({});

@@ -2,6 +2,9 @@
   --navy: rgba(0, 27, 68);
   --gold: #ffb700;
   --form-height: 2.5rem;
+  --dark-gray: #333333;
+  --mid-gray: #555555;
+  --moon-gray: #cccccc;
 }
 body {
   position: relative;
@@ -22,7 +25,7 @@ body {
 .input {
   height: var(--form-height);
   box-sizing: border-box;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 5px;
   font-size: 15px;
 }
@@ -44,6 +47,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.btn-download {
+  color: var(--dark-gray);
+  background-color: transparent;
+  border: 1px solid var(--moon-gray);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  transition: 0.2s all ease-in-out;
+}
+.btn-download:hover {
+  border: 1px solid var(--mid-gray);
+  color: var(--dark-gray);
 }
 .btn-primary {
   color: black;
@@ -125,6 +143,16 @@ body {
 .examples .result:first-child {
   opacity: 1;
   position: static;
+}
+.br5 {
+  border-radius: 2rem;
+}
+.mt8 {
+  margin-top: 20rem;
+}
+.btn-chevron {
+  background: transparent;
+  border: none;
 }
 
 @keyframes shake {
