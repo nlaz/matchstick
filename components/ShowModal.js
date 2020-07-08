@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import cx from "classnames";
 import { Download, ChevronRight, ChevronLeft } from "react-feather";
 
 import Modal from "./Modal";
@@ -59,10 +60,18 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
                 </div>
               </div>
               <div className="w-third tr">
-                <button className="btn btn-download ml-auto pointer">
+                <a
+                  className={cx("link btn btn-download ml-auto pointer", {
+                    disabled: !result,
+                  })}
+                  href={result}
+                  disabled={!result}
+                  target="_blank"
+                  download
+                >
                   <Download size={16} style={{ paddingBottom: "1px" }} />
                   <span className="ml1">Download</span>
-                </button>
+                </a>
               </div>
             </div>
             <img
