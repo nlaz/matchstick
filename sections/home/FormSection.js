@@ -90,15 +90,21 @@ class Form extends React.Component {
     if (files.length === 0) return;
 
     const file = files[0];
+    const src = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = src;
 
-    const info = {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-      file: file,
-      url: URL.createObjectURL(file),
+    img.onload = () => {
+      const info = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        file: file,
+        src: src,
+        image: img,
+      };
+      this.setState({ upload: info });
     };
-    this.setState({ upload: info });
   };
 
   render() {
@@ -154,7 +160,7 @@ class Form extends React.Component {
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
                     <img
-                      src={upload.url}
+                      src={upload.src}
                       style={{
                         width: "20px",
                         height: "20px",
@@ -194,7 +200,7 @@ class Form extends React.Component {
               </button>
             </div>
           </div>
-          <Options onChange={this.setOptions} />
+          <Options file={this.state.upload} onChange={this.setOptions} />
         </form>
       </div>
     );

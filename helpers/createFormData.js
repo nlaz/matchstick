@@ -1,6 +1,8 @@
 const createFormData = (url, upload, options) => {
   if (options.emulateDevice === "Desktop HD") {
     delete options.emulateDevice;
+  } else if (options.emulateDevice === "Custom - Use mockup dimensions") {
+    delete options.emulateDevice;
   }
 
   const formData = new FormData();

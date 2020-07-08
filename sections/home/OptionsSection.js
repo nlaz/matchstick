@@ -8,12 +8,13 @@ import Checkbox from "../../components/Checkbox";
 import devices from "../../helpers/devices";
 
 const defaultState = {
-  emulateDevice: "Desktop HD",
+  emulateDevice: "Custom - Use mockup dimensions",
   orientation: "horizontal",
-  width: 1440,
-  height: 1024,
-  fullPage: true,
+  width: "-",
+  height: "-",
+  fullPage: false,
   showOptions: false,
+  file: {},
 };
 
 class OptionsSection extends React.Component {
@@ -54,6 +55,18 @@ class OptionsSection extends React.Component {
   };
 
   componentDidMount = () => this.props.onChange(this.state);
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { file } = this.props;
+    if (file !== prevProps.file) {
+      if (this.state.emulateDevice === "Custom - Use mockup dimensions") {
+        this.setState(
+          { width: file.image.width, height: file.image.height },
+          () => this.props.onChange(this.state)
+        );
+      }
+    }
+  };
 
   toggleShowOptions = () =>
     this.setState({ showOptions: !this.state.showOptions });

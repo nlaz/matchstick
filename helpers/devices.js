@@ -1,4 +1,14 @@
 export default {
+  "Custom - Use mockup dimensions": {
+    horizontal: {
+      width: "-",
+      height: "-",
+    },
+    vertical: {
+      width: "-",
+      height: "-",
+    },
+  },
   "Desktop HD": {
     horizontal: {
       width: 1440,
