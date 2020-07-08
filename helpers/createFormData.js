@@ -4,6 +4,9 @@ const createFormData = (url, upload, options) => {
   } else if (options.emulateDevice === "Custom - Use mockup dimensions") {
     delete options.emulateDevice;
   }
+  if (Object.keys(options.file).length > 0) {
+    delete options.file;
+  }
 
   const formData = new FormData();
   formData.append("url", url);

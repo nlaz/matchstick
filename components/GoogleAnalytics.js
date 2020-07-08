@@ -4,10 +4,9 @@ import ReactGA from "react-ga";
 ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_KEY);
 
 export function logSubmitAction() {
-  console.log("here");
   ReactGA.event({
     category: "User Action",
-    action: "Pressed the Submit Button"
+    action: "Pressed the Submit Button",
   });
 }
 
