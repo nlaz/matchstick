@@ -99,7 +99,7 @@ body {
     width: 360px;
   }
 }
-.results.loading {
+.result.loading {
   transition: all 0.5s ease-in-out;
   filter: grayscale(1) brightness(3) opacity(0.25);
 }
@@ -108,6 +108,23 @@ body {
   animation-duration: 200ms;
   animation-iteration-count: 2;
   animation-timing-function: ease-in-out;
+}
+
+.examples .result {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+.examples .result.active {
+  opacity: 1;
+}
+.examples .result:first-child {
+  opacity: 1;
+  position: static;
 }
 
 @keyframes shake {

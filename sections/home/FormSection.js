@@ -8,10 +8,9 @@ import createFormData from "../../helpers/createFormData";
 import Options from "./OptionsSection";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
+import ExampleView from "./ExampleView";
 import Input from "../../components/Input";
 import ShowModal from "../../components/ShowModal";
-import input from "../../images/matchstick-input.jpg";
-import output from "../../images/matchstick-output.jpg";
 
 import devices from "../../helpers/devices";
 
@@ -207,22 +206,29 @@ class Form extends React.Component {
   }
 }
 
-const Results = ({ isLoading, comparison, setShowModal, options }) => (
+const MaximizeButton = ({ onClick }) => (
+  <div
+    className="pointer bg-white absolute flex items-center justify-center shadow-5 top-2 right-2 ma4 br-100"
+    style={{ width: "56px", height: "56px" }}
+    onClick={onClick}
+  >
+    <Maximize />
+  </div>
+);
+
+const Results = ({ isLoading, result, setShowModal, options }) => (
   <div className="bg-white shadow-4 center pa4 br3 relative w-100">
-    <img src={comparison} className={cx("results", { loading: isLoading })} />
+    {result ? (
+      <img src={result} className={cx("result", { loading: isLoading })} />
+    ) : (
+      <ExampleView isLoading={isLoading} />
+    )}
     {isLoading && <LoadingView />}
-    <div
-      className="pointer bg-white absolute flex items-center justify-center shadow-5 top-2 right-2 ma4 br-100"
-      style={{ width: "56px", height: "56px" }}
-      onClick={() => setShowModal(true)}
-    >
-      <Maximize />
-    </div>
+    <MaximizeButton onClick={() => setShowModal(true)} />
   </div>
 );
 
 const FormSection = () => {
-  const defaultImage = require("../../images/matchstick-comparison.jpg");
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState({});
@@ -252,7 +258,7 @@ const FormSection = () => {
       <Results
         isLoading={isLoading}
         options={options}
-        comparison={results.result || defaultImage}
+        result={results.result}
         setShowModal={setShowModal}
       />
     </div>
