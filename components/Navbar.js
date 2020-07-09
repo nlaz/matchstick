@@ -5,6 +5,15 @@ import Emoji from "../components/Emoji";
 import Anchor from "../components/Anchor";
 import Link from "../components/Link";
 
+const DarkMode = ({ isDarkMode }) => (
+  <button
+    className="btn btn-icon ml2 pointer"
+    onClick={() => setDarkMode(!isDarkMode)}
+  >
+    {isDarkMode ? <Sun /> : <Moon />}
+  </button>
+);
+
 const Navbar = () => {
   const [isDarkMode, setDarkMode] = useState(false);
   return (
@@ -19,12 +28,6 @@ const Navbar = () => {
         >
           GitHub
         </Anchor>
-        <button
-          className="btn btn-icon ml2 pointer"
-          onClick={() => setDarkMode(!isDarkMode)}
-        >
-          {isDarkMode ? <Sun /> : <Moon />}
-        </button>
       </div>
     </div>
   );
