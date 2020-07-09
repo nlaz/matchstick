@@ -12,13 +12,19 @@ const defaultState = {
   orientation: "horizontal",
   width: "-",
   height: "-",
+  color: "#ff03ff",
   fullPage: false,
-  showOptions: false,
+  showOptions: true,
   file: {},
 };
 
 class OptionsSection extends React.Component {
   state = defaultState;
+
+  onColorChange = ({ target }) =>
+    this.setState({ color: target.value }, () =>
+      this.props.onChange(this.state)
+    );
 
   onDeviceChange = ({ target }) => {
     const device = devices[target.value];
@@ -131,7 +137,26 @@ class OptionsSection extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="mb3 pb2 pt3">
+            <div className="mb3 pb3 pt2">
+              <label className="f6 db mid-gray mb2">Color</label>
+              <div className="flex">
+                <Input
+                  value={this.state.color}
+                  onChange={this.onColorChange}
+                  placeholder="#000000"
+                />
+                <div
+                  className="br3 ml2"
+                  style={{
+                    width: "44px",
+                    height: "40px",
+                    flex: "1 0 auto",
+                    backgroundColor: this.state.color,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mb3 mt3 pb2">
               <Checkbox
                 id="capture"
                 checked={this.state.fullPage}
