@@ -42,23 +42,20 @@ class OptionsSection extends React.Component {
     const { file } = this.props;
     const { emulateDevice, orientation } = this.state;
     const device = devices[emulateDevice];
+    let width, height;
+
     if (
       emulateDevice === "Custom - Use mockup dimensions" &&
       Object.keys(file).length > 0
     ) {
-      this.setState(
-        { width: file.image.width, height: file.image.height },
-        () => this.props.onChange(this.state)
-      );
+      width = file.image.width;
+      height = file.image.height;
     } else {
-      this.setState(
-        {
-          width: device[orientation].width,
-          height: device[orientation].height,
-        },
-        () => this.props.onChange(this.state)
-      );
+      width = device[orientation].width;
+      height = device[orientation].height;
     }
+
+    this.setState({ width, height }, () => this.props.onChange(this.state));
   };
 
   onFullPageChange = () =>
