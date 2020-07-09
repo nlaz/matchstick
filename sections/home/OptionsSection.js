@@ -14,7 +14,7 @@ const defaultState = {
   height: "-",
   color: "#ff03ff",
   fullPage: false,
-  showOptions: true,
+  showOptions: false,
   file: {},
 };
 
@@ -39,15 +39,26 @@ class OptionsSection extends React.Component {
     );
 
   onUpdateDimensions = () => {
+    const { file } = this.props;
     const { emulateDevice, orientation } = this.state;
     const device = devices[emulateDevice];
-    this.setState(
-      {
-        width: device[orientation].width,
-        height: device[orientation].height,
-      },
-      () => this.props.onChange(this.state)
-    );
+    if (
+      emulateDevice === "Custom - Use mockup dimensions" &&
+      Object.keys(file).length > 0
+    ) {
+      this.setState(
+        { width: file.image.width, height: file.image.height },
+        () => this.props.onChange(this.state)
+      );
+    } else {
+      this.setState(
+        {
+          width: device[orientation].width,
+          height: device[orientation].height,
+        },
+        () => this.props.onChange(this.state)
+      );
+    }
   };
 
   onFullPageChange = () =>
@@ -65,12 +76,7 @@ class OptionsSection extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     const { file } = this.props;
     if (file !== prevProps.file) {
-      if (this.state.emulateDevice === "Custom - Use mockup dimensions") {
-        this.setState(
-          { width: file.image.width, height: file.image.height },
-          () => this.props.onChange(this.state)
-        );
-      }
+      this.onUpdateDimensions();
     }
   };
 

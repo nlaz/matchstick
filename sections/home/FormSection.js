@@ -153,7 +153,7 @@ class Form extends React.Component {
                 <input
                   type="file"
                   id="file-upload"
-                  accept="image/png,image/jpeg,image/jpg"
+                  accept="image/png"
                   onChange={this.onFileUpload}
                 />
                 {Object.keys(upload).length > 0 && (

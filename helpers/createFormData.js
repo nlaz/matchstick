@@ -1,17 +1,18 @@
 const createFormData = (url, upload, options) => {
-  if (options.emulateDevice === "Desktop HD") {
-    delete options.emulateDevice;
-  } else if (options.emulateDevice === "Custom - Use mockup dimensions") {
-    delete options.emulateDevice;
+  const opts = { ...options };
+  if (opts.emulateDevice === "Desktop HD") {
+    delete opts.emulateDevice;
+  } else if (opts.emulateDevice === "Custom - Use mockup dimensions") {
+    delete opts.emulateDevice;
   }
-  if (Object.keys(options.file).length > 0) {
-    delete options.file;
+  if (Object.keys(opts.file).length > 0) {
+    delete opts.file;
   }
 
   const formData = new FormData();
   formData.append("url", url);
   formData.append("upload", upload.file);
-  formData.append("options", JSON.stringify(options));
+  formData.append("options", JSON.stringify(opts));
   return formData;
 };
 

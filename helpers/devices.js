@@ -19,36 +19,6 @@ export default {
       height: 1440,
     },
   },
-  "iPhone 5/SE": {
-    horizontal: {
-      width: 568,
-      height: 320,
-    },
-    vertical: {
-      width: 320,
-      height: 568,
-    },
-  },
-  "iPhone 6/7/8": {
-    horizontal: {
-      width: 667,
-      height: 375,
-    },
-    vertical: {
-      width: 375,
-      height: 667,
-    },
-  },
-  "iPhone 6/7/8 Plus": {
-    horizontal: {
-      width: 736,
-      height: 414,
-    },
-    vertical: {
-      width: 414,
-      height: 736,
-    },
-  },
   "iPhone X": {
     horizontal: {
       width: 812,
