@@ -157,7 +157,9 @@ class Form extends React.Component {
                   onChange={this.onFileUpload}
                 />
                 {Object.keys(upload).length === 0 && (
-                  <div className="f7 mt1 gray">*Use .png less than 50 MB</div>
+                  <div className="f7 mt1 gray">
+                    *Accepts .png less than 50 MB
+                  </div>
                 )}
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
@@ -220,7 +222,7 @@ const MaximizeButton = ({ onClick }) => (
 );
 
 const Results = ({ isLoading, result, setShowModal, options }) => (
-  <div className="bg-white shadow-4 center pa4 br3 relative w-100">
+  <div className="bg-white ba b--near-white shadow-4 center pa4 br3 relative w-100">
     {result ? (
       <img src={result} className={cx("result", { loading: isLoading })} />
     ) : (
@@ -232,7 +234,7 @@ const Results = ({ isLoading, result, setShowModal, options }) => (
 );
 
 const FormSection = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState({});
   const [error, setError] = useState({});

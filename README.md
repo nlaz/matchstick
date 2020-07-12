@@ -1,30 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+## Matchstick
 
-## Getting Started
+This project contains a small site for designers and developers to compare designs with code. This project was bootstrapped with [Create Next App](https://github.com/vercel/create-next-app).
 
-First, run the development server:
+## Installing
 
-```bash
-npm run dev
-# or
+Clone this project and update your path:
+
+```
+git clone https://github.com/nlaz/flashcards-for-developers.git
+cd matchstick
+```
+
+Install dependencies and run the web application.
+
+```
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to view the app in the browser.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Contributing
 
-## Learn More
+Interested in contributing? Contact [@nlaz](https://twitter.com/nikolazaris) for help to get started.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is [MIT licensed](./LICENSE.md).
