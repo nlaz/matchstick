@@ -156,6 +156,9 @@ class Form extends React.Component {
                   accept="image/png"
                   onChange={this.onFileUpload}
                 />
+                {Object.keys(upload).length === 0 && (
+                  <div className="f7 mt1 gray">*Use .png less than 50 MB</div>
+                )}
                 {Object.keys(upload).length > 0 && (
                   <div className="f6 flex items-center mt1 pt1">
                     <img
@@ -229,7 +232,7 @@ const Results = ({ isLoading, result, setShowModal, options }) => (
 );
 
 const FormSection = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState({});
   const [error, setError] = useState({});

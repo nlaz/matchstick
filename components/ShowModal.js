@@ -13,8 +13,9 @@ const titles = ["Website snapshot", "Mockup file", "Compared view"];
 
 const Index = ({ active, onClick }) => (
   <div
-    className={`br3 mh1 pointer ${active ? "bg-black" : "bg-light-gray"}`}
-    style={{ width: "50px", height: "6px" }}
+    className={`page-index br3 mh1 pointer ${
+      active ? "bg-black" : "bg-light-gray"
+    }`}
     onClick={onClick}
   />
 );
@@ -41,7 +42,7 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
       <div className="overlay-wrapper relative">
         <div className="flex justify-center">
           <button
-            className="btn-chevron mr3 mt8 dark-gray pointer flex items-center justify-center ph0"
+            className="btn-chevron mr3-ns mt6 mt8-l dark-gray pointer flex items-center justify-center ph0"
             onClick={() => setIndex(onPrev(index))}
             style={{ height: "38px", width: "38px" }}
           >
@@ -81,7 +82,7 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
             />
           </div>
           <button
-            className="btn-chevron ml3 mt8 dark-gray pointer flex items-center justify-center ph0"
+            className="btn-chevron ml3-ns mt6 mt8-l dark-gray pointer flex items-center justify-center ph0"
             onClick={() => setIndex(onNext(index))}
             style={{ height: "38px", width: "38px" }}
           >

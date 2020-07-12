@@ -153,9 +153,23 @@ body {
 .mt8 {
   margin-top: 20rem;
 }
+@media screen and (min-width: 60em) {
+  .mt8-l {
+    margin-top: 20rem;
+  }
+}
 .btn-chevron {
   background: transparent;
   border: none;
+}
+.page-index {
+  width: 6px;
+  height: 6px;
+}
+@media screen and (min-width: 30em) {
+  .page-index {
+    width: 50px;
+  }
 }
 
 @keyframes shake {
