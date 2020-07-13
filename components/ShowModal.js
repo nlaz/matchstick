@@ -23,6 +23,26 @@ const Index = ({ active, onClick }) => (
 const onPrev = (index) => (index > 0 ? index - 1 : 2);
 const onNext = (index) => (index + 1) % 3;
 
+const download = (e) => {
+  fetch(e.target.href, {
+    method: "GET",
+    headers: {},
+  })
+    .then((response) => {
+      response.arrayBuffer().then(function (buffer) {
+        const url = window.URL.createObjectURL(new Blob([buffer]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "download.png"); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const ShowModal = ({ onDismiss, image1, image2, result }) => {
   const images = !!result
     ? [image1, image2, result]
@@ -67,6 +87,7 @@ const ShowModal = ({ onDismiss, image1, image2, result }) => {
                   })}
                   href={result}
                   disabled={!result}
+                  onClick={(e) => download(e)}
                   target="_blank"
                   download
                 >
