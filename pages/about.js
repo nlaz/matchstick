@@ -8,27 +8,24 @@ import Anchor from "../components/Anchor";
 const AboutPage = () => (
   <Layout>
     <Navbar />
-    <div
-      className="ph3 ph4-m navy mw6 center w-100 mt4 pt5"
-      style={{ flex: 1 }}
-    >
+    <div className="ph3 ph4-m mw6 center w-100 mt4 pt5" style={{ flex: 1 }}>
       <h1 className="mb2">/matchstick</h1>
       <div className="bb" />
       <p className="lh-copy">
         Matchstick was originally created by{" "}
-        <Anchor className="navy" href="https://twitter.com/nikolazaris">
+        <Anchor className="black" href="https://twitter.com/nikolazaris">
           Niko
         </Anchor>
         ,{" "}
-        <Anchor className="navy" href="https://twitter.com/MusingMurmurs">
+        <Anchor className="black" href="https://twitter.com/MusingMurmurs">
           Elizabeth
         </Anchor>
         , and{" "}
-        <Anchor className="navy" href="https://twitter.com/justinisaf">
+        <Anchor className="black" href="https://twitter.com/justinisaf">
           Justin
         </Anchor>
         , on a bus, a{" "}
-        <Anchor className="navy" href="https://startupbus.com/">
+        <Anchor className="black" href="https://startupbus.com/">
           StartupBus
         </Anchor>
         . We were part of a bus-based startup competition as we traveled from

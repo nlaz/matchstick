@@ -10,7 +10,7 @@ import FormSection from "../sections/home/FormSection";
 const HomePage = () => (
   <Layout>
     <Navbar />
-    <div className="ph3 ph4-m navy center w-100" style={{ flex: 1 }}>
+    <div className="ph3 ph4-m black center w-100" style={{ flex: 1 }}>
       <HeaderSection />
       <FormSection />
     </div>
