@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+// TODO change server url for development
+const baseUrl = "https://matchstick-server.herokuapp.com";
 
 export const fetchComparison = async (formData) => {
   return await axios.post(baseUrl + "/api/comparison", formData);
