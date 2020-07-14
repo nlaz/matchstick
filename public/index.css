@@ -125,8 +125,8 @@ body {
   }
 }
 .result.loading {
-  transition: all 0.5s ease-in-out;
-  filter: grayscale(1) brightness(3) opacity(0.25);
+  transition: all 0.75s ease-in-out;
+  filter: grayscale(1) brightness(4) opacity(0.15);
 }
 .shake {
   animation-name: shake;
@@ -201,4 +201,116 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes spinner-spin {
+  0% {
+    opacity: 1;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(1.34, 1.34);
+  }
+  100% {
+    opacity: 0;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(1, 1);
+  }
+}
+
+.spinner-spin div > div {
+  position: absolute;
+  width: 9.44px;
+  height: 9.44px;
+  border-radius: 50%;
+  background: #000000;
+  animation: spinner-spin 1s linear infinite;
+}
+.spinner-spin div:nth-child(1) > div {
+  left: 79px;
+  top: 54px;
+  animation-delay: -0.875s;
+}
+.spinner-spin > div:nth-child(1) {
+  transform: rotate(0deg);
+  transform-origin: 83.72px 58.72px;
+}
+.spinner-spin div:nth-child(2) > div {
+  left: 72px;
+  top: 72px;
+  animation-delay: -0.75s;
+}
+.spinner-spin > div:nth-child(2) {
+  transform: rotate(45deg);
+  transform-origin: 76.72px 76.72px;
+}
+.spinner-spin div:nth-child(3) > div {
+  left: 54px;
+  top: 79px;
+  animation-delay: -0.625s;
+}
+.spinner-spin > div:nth-child(3) {
+  transform: rotate(90deg);
+  transform-origin: 58.72px 83.72px;
+}
+.spinner-spin div:nth-child(4) > div {
+  left: 37px;
+  top: 72px;
+  animation-delay: -0.5s;
+}
+.spinner-spin > div:nth-child(4) {
+  transform: rotate(135deg);
+  transform-origin: 41.72px 76.72px;
+}
+.spinner-spin div:nth-child(5) > div {
+  left: 30px;
+  top: 54px;
+  animation-delay: -0.375s;
+}
+.spinner-spin > div:nth-child(5) {
+  transform: rotate(180deg);
+  transform-origin: 34.72px 58.72px;
+}
+.spinner-spin div:nth-child(6) > div {
+  left: 37px;
+  top: 37px;
+  animation-delay: -0.25s;
+}
+.spinner-spin > div:nth-child(6) {
+  transform: rotate(225deg);
+  transform-origin: 41.72px 41.72px;
+}
+.spinner-spin div:nth-child(7) > div {
+  left: 54px;
+  top: 30px;
+  animation-delay: -0.125s;
+}
+.spinner-spin > div:nth-child(7) {
+  transform: rotate(270deg);
+  transform-origin: 58.72px 34.72px;
+}
+.spinner-spin div:nth-child(8) > div {
+  left: 72px;
+  top: 37px;
+  animation-delay: 0s;
+}
+.spinner-spin > div:nth-child(8) {
+  transform: rotate(315deg);
+  transform-origin: 76.72px 41.72px;
+}
+.loadingio-spinner-spin-wrapper {
+  width: 118px;
+  height: 118px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.spinner-spin {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.spinner-spin div {
+  box-sizing: content-box;
 }

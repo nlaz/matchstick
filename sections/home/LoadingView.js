@@ -25,7 +25,7 @@ const values = [
   "Making pixel values more even...",
   "Booting up hacker terminal...",
   "Frantically searching StackOverflow...",
-  "Making buttons have more pop...",
+  "Making buttons with more pop...",
   "Adding more drop shadows...",
   "Competing in a design sprint...",
   "Drafting a moodboard...",
@@ -53,11 +53,38 @@ class LoadingView extends Component {
   render() {
     return (
       <div
-        className="absolute flex justify-center near-black items-center right-0 left-0 ph2"
-        style={{ top: "5.5rem" }}
+        className="absolute tc near-black items-center right-0 left-0 ph2"
+        style={{ top: "7.5rem" }}
       >
-        <Loader size={16} className="spin" strokeWidth={3} />
-        <div className="fw5 ml2">{this.state.value}</div>
+        <div class="loadingio-spinner-spin-wrapper">
+          <div class="spinner-spin">
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div className="f5 fw5 ml2">{this.state.value}</div>
       </div>
     );
   }

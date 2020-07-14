@@ -217,7 +217,10 @@ const MaximizeButton = ({ onClick }) => (
 );
 
 const Results = ({ isLoading, result, setShowModal, options }) => (
-  <div className="bg-white ba b--near-white shadow-results center pa4 br3 relative w-100">
+  <div
+    className="bg-white ba b--near-white shadow-results center pa2 pa3-m pa4-l br3 relative w-100"
+    style={{ minHeight: "420px" }}
+  >
     {result ? (
       <img src={result} className={cx("result", { loading: isLoading })} />
     ) : (
