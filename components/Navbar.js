@@ -4,6 +4,7 @@ import { Moon, Sun } from "react-feather";
 import Emoji from "../components/Emoji";
 import Anchor from "../components/Anchor";
 import Link from "../components/Link";
+import ProductHunt from "../components/ProductHunt";
 
 const DarkMode = ({ isDarkMode }) => (
   <button
@@ -21,10 +22,13 @@ const Navbar = () => {
       <Link to="/" className="f4 link black b mv1">
         /matchstick
       </Link>
-      <div className="flex items-center">
+      <div className="flex justify-end flex-column flex-column-reverse flex-row-m flex-row-l items-center-ns">
+        <div className="w-100 mt3 mt0-ns">
+          <ProductHunt />
+        </div>
         <Anchor
           href="https://github.com/nlaz/matchstick"
-          className="f5 flex items-center black link mv1 mr1"
+          className="f5 flex justify-end items-center black link mv2 mv1-ns ml4 mr1"
         >
           GitHub
         </Anchor>

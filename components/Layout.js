@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Head from "next/head";
 import { initGA, logPageView } from "../helpers/analytics";
 
-const title = "Matchstick - Visually compare your mockups and code.";
+const title = "Matchstick - Visually compare your code and designs.";
 const description = "Highlight missing design details from your website.";
 
 class Layout extends Component {
