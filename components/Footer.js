@@ -10,7 +10,7 @@ const Footer = () => (
       <Link to="/about" className="link f6 mr3 black">
         About
       </Link>
-      <Anchor href="mailto:getmatchstick@gmail.com" className="link black f6">
+      <Anchor href="mailto:hello@matchstick.xyzc" className="link black f6">
         Contact
       </Anchor>
     </div>

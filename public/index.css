@@ -38,6 +38,10 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
+.shadow-results {
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.03), 0 4px 4px rgba(0, 0, 0, 0.03),
+    0 8px 8px rgba(0, 0, 0, 0.03);
+}
 .btn-icon {
   color: black;
   background-color: transparent;

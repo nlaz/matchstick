@@ -70,17 +70,12 @@ class Form extends React.Component {
       this.props.setOptions({ options });
     } catch (error) {
       this.props.setLoading(false);
-      if (error.response === 400) {
-        this.props.setError({
-          message: error.response.data,
-          error: error,
-        });
-      } else {
-        this.props.setError({
-          message: "Something happened...",
-          error: error,
-        });
-      }
+      const message =
+        (error.response || {}).data || "Oops. Something went wrong.";
+      this.props.setError({
+        message: message,
+        error: error,
+      });
     }
   };
 
@@ -222,7 +217,7 @@ const MaximizeButton = ({ onClick }) => (
 );
 
 const Results = ({ isLoading, result, setShowModal, options }) => (
-  <div className="bg-white ba b--near-white shadow-4 center pa4 br3 relative w-100">
+  <div className="bg-white ba b--near-white shadow-results center pa4 br3 relative w-100">
     {result ? (
       <img src={result} className={cx("result", { loading: isLoading })} />
     ) : (
