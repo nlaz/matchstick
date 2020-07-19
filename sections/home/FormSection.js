@@ -136,7 +136,7 @@ class Form extends React.Component {
                 </div>
               )}
             </div>
-            <div className="flex">
+            <div className="flex pb1">
               <div className="relative" style={{ flex: "1 auto" }}>
                 <label
                   htmlFor="file-upload"
@@ -152,7 +152,7 @@ class Form extends React.Component {
                   onChange={this.onFileUpload}
                 />
                 {Object.keys(upload).length === 0 && (
-                  <div className="f7 mt1 gray">
+                  <div className="f7 mt2 gray">
                     *Accepts .png less than 50 MB
                   </div>
                 )}
@@ -182,22 +182,23 @@ class Form extends React.Component {
                   </div>
                 )}
               </div>
-              <button
-                type="submit"
-                onClick={this.onSubmit}
-                className={cx("btn btn-primary ml2", {
-                  pointer: !isLoading,
-                  loading: isLoading,
-                })}
-                disabled={isLoading}
-              >
-                {!isLoading ? (
-                  <ChevronRight width={24} />
-                ) : (
-                  <Loader width={20} className="spin" />
-                )}
-              </button>
             </div>
+            <button
+              type="submit"
+              onClick={this.onSubmit}
+              className={cx("btn btn-primary ph3 mt2 ml-auto", {
+                pointer: !isLoading,
+                loading: isLoading,
+              })}
+              disabled={isLoading}
+            >
+              <span className="ml2 mr1">Submit</span>
+              {!isLoading ? (
+                <ChevronRight width={18} />
+              ) : (
+                <Loader width={18} className="spin" />
+              )}
+            </button>
           </div>
           <Options file={this.state.upload} onChange={this.setOptions} />
         </form>

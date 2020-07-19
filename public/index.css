@@ -5,6 +5,8 @@
   --dark-gray: #333333;
   --mid-gray: #555555;
   --moon-gray: #cccccc;
+  --dark-blue: #0c4ea5;
+  --darker-blue: #00449e;
 }
 body {
   position: relative;
@@ -72,23 +74,28 @@ body {
   color: var(--dark-gray);
 }
 .btn-primary {
-  color: black;
-  background-color: transparent;
-  border: 1px solid black;
+  color: white;
+  background-color: var(--dark-blue);
+  border: 1px solid var(--dark-blue);
   height: 40px;
-  width: 44px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.2s all ease-in-out;
 }
+@media screen and (min-width: 60em) {
+  .btn-primary {
+    width: auto;
+  }
+}
 .btn-primary:hover {
   color: white;
-  background-color: black;
+  background-color: var(--darker-blue);
 }
 .btn-primary.loading {
   color: white;
-  background-color: black;
+  background-color: var(--darker-blue);
 }
 .spin {
   animation-name: spin;
